@@ -1,10 +1,8 @@
-// import { createStore } from 'redux';
 import {
   combineReducers,
   configureStore,
   getDefaultMiddleware,
 } from "@reduxjs/toolkit";
-// import { curryGetDefaultMiddleware } from "@reduxjs/toolkit/dist/getDefaultMiddleware";
 import {
   persistStore,
   persistReducer,
