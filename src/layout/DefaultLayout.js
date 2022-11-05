@@ -1,12 +1,13 @@
-import React from 'react'
+import React from "react";
+import Navbar from "src/components/navbar/Navbar";
 
-
-const DefaultLayout = () => {
+const DefaultLayout = ({ children }) => {
   return (
     <div>
-      Hi App is Running..
+      <Navbar />
+      <main>{children}</main>
     </div>
-  )
-}
+  );
+};
 
-export default DefaultLayout
+export default DefaultLayout;
