@@ -1,5 +1,10 @@
 $h2-text-color: white;
 $h1-text-color: white;
+$welcome-bg-color: #020310;
+.container {
+  width: 100%;
+  max-width: unset;
+}
 .welcome_box {
   display: flex;
   flex-direction: column;
@@ -15,5 +20,15 @@ $h1-text-color: white;
   }
 }
 .row_box {
-  margin-bottom: 5em;
+  height: 100vh;
+  align-items: center;
+  background-image: url("../../../assets/bg.jpg");
+  background-size: cover;
+  background-blend-mode: lighten;
+}
+
+@media screen and (min-width: 993px) {
+  .container {
+    padding-top: 0.225rem;
+  }
 }

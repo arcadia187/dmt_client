@@ -21,6 +21,8 @@ import "./navbar.scss";
 import React from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+// import logo from "../../assets/logo.svg";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 const NavbarItems = [
   {
     title: "home",
@@ -60,7 +62,7 @@ export default function Navbar() {
     <CNavbar style={{ padding: "1rem 0" }} expand="lg" className="bg-nav">
       <CContainer className="container" fluid>
         <CNavbarBrand className="navbar_brand" href="#">
-          Navbar
+          {/* <img src={logo} width="80px" alt="logo" /> */}
         </CNavbarBrand>
         <CNavbarToggler
           className="navbar_toggle"

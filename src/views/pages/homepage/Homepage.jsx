@@ -13,22 +13,29 @@ import {
   CRow,
 } from "@coreui/react";
 import "./homepage.scss";
+// import logo from "../../../assets/Asset 4.svg";
 import img from "../../../assets/Screenshot (43).png";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 export default function Homepage() {
   return (
     <CContainer
       fluid
-      style={{ backgroundColor: "black", paddingTop: "4em", color: "wheat" }}
+      className="container"
+      style={{
+        backgroundColor: "#020310",
+        color: "wheat",
+        overflow: "hidden",
+      }}
     >
-      <CRow
-        style={{ backgroundColor: "transparent" }}
-        className="justify-content-center row_box"
-      >
+      <CRow className="justify-content-center row_box">
         <CCol className="welcome_box" lg={5}>
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
             WELCOME TO OUR PORTAL
           </h2>
-          <h1>logo</h1>
+          <h1>
+            {/* <img src={logo} width="300px" alt="" /> */}
+            LOGO
+          </h1>
           <p>
             DMT is a new age psychedelic record label based in India devoted for
             psychedelic culture, music & art. Let's explore the dendrodelic
@@ -47,13 +54,13 @@ export default function Homepage() {
           </CButton>
         </CCol>
       </CRow>
-      <CRow className="justify-content-center">
+      <CRow className="justify-content-center ">
         <CCol className="welcome_box" lg={5}>
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
             HOT!
           </h2>
           <div>
-            <img src={img} alt="img" />
+            <img src={img} alt="image" />
           </div>
         </CCol>
       </CRow>

@@ -5,7 +5,15 @@ const DefaultLayout = ({ children }) => {
   return (
     <div>
       <Navbar />
-      <main>{children}</main>
+      <main
+        style={{
+          backgroundImage: `url("../../../assets/Asset 2-100.jpg")`,
+          backgroundSize: "cover",
+          backgroundColor: "#020310;",
+        }}
+      >
+        {children}
+      </main>
     </div>
   );
 };

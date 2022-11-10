@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 const loading = (
   <div className="pt-3 text-center">
-    <div className="sk-spinner sk-spinner-pulse"></div>
+    <div className="sk-spinner sk-spinner-pulse">Loading...</div>
   </div>
 );
 
@@ -33,11 +33,7 @@ export default function App() {
           <Route
             path="*"
             name="Home"
-            element={
-              <DefaultLayout>
-                <HomePage />
-              </DefaultLayout>
-            }
+            element={<DefaultLayout children={<HomePage />}></DefaultLayout>}
           />
         </Routes>
       </Suspense>
