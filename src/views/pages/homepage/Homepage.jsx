@@ -16,14 +16,13 @@ import "./homepage.scss";
 // import logo from "../../../assets/Asset 4.svg";
 import img from "../../../assets/Screenshot (43).png";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import Album from "src/components/album/Album";
 export default function Homepage() {
   return (
     <CContainer
       fluid
       className="container"
       style={{
-        backgroundColor: "#020310",
-        color: "wheat",
         overflow: "hidden",
       }}
     >
@@ -46,8 +45,8 @@ export default function Homepage() {
               borderRadius: "2rem",
               padding: "0.2rem 2rem",
               background: "transparent",
-              color: "yellow",
-              borderColor: "yellow",
+              color: "#fee092",
+              borderColor: "#fee092",
             }}
           >
             VIEW OUR ALBUMS
@@ -59,9 +58,7 @@ export default function Homepage() {
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
             HOT!
           </h2>
-          <div>
-            <img src={img} alt="image" />
-          </div>
+          <Album />
         </CCol>
       </CRow>
     </CContainer>
