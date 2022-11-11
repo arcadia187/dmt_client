@@ -5,16 +5,25 @@ body {
     --darkBlue-color: #020310;
     --yellow-color: #FEE092;
     --bodyCopy: 16px;
-    --heading: 50px;
+    --heading-lg: 50px;
+    --heading-sm:24px;
+    --heading-sm-wt:500;
+    --heading-lg-wt:700;
+    --track-heading-color:#8bb63e;
+    --para-sm:14px;
+    --para-lg:22px;
+    --btn-border:1.25rem;
+
 }
 
 * {
     font-family: 'Barlow', sans-serif;
+    box-sizing: border-box;
 }
 
 
 .heading {
-    font-size: var(--heading);
+    font-size: var(--heading-lg);
     font-weight: bold;
 }
 
@@ -22,6 +31,7 @@ body {
     font-size: var(--bodyCopy);
     line-height: 20px;
     letter-spacing: 2px;
+    border-radius: var(--btn-border);
 }
 
 .secondryBtn {
@@ -29,10 +39,43 @@ body {
     border: 1px solid var(--yellow-color);
     background-color: transparent;
     font-size: var(--bodyCopy);
+    border-radius: var(--btn-border);
+}
+
+.para{
+    line-height: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.blackColorLayer{
+    background: rgba(0, 0, 0, 0.6) !important;
 }
 
 .secondryBtn:hover {
     box-shadow: 0 0 100px rgba(219, 166, 46, .8);
     background-color: var(--yellow-color);
     color: var(--darkBlue-color);
+}
+
+.albumBtn {
+    width: 120px;
+    padding: 0.1rem;
+    color: black;
+    font-size: var(--para-sm);
+    background: var(--yellow-color);
+    font-weight: 300;
+  }
+
+  .boldName{
+    font-size: var(--para-lg);
+    font-weight:var(--heading-lg-wt);
+    text-transform: uppercase;
+  }
+
+@media screen and (min-width:993px) {
+    .albumBtn {
+        width: 120px;
+        font-size: var(--para-sm);
+        margin-top: 1rem;
+      }
 }

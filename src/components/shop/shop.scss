@@ -1,0 +1,31 @@
+.shopBox {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  //   justify-content: center;
+  .productName {
+    font-size: var(--heading-sm);
+  }
+  div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .shopBox {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.425rem;
+    justify-content: center;
+    div {
+      width: 30%;
+    }
+  }
+}
