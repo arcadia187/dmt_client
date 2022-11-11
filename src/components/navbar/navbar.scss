@@ -12,19 +12,25 @@ $nav-bg-color: black;
   .container {
     // margin: 0;
     max-width: unset;
+    .imgLogo {
+      width: 80px;
+    }
     .navbar_brand {
       color: $nav-brand-color;
     }
     .navbar-collapse {
       width: 82%;
       flex-grow: unset;
+      .form {
+        margin-left: 1rem;
+      }
       .search_input {
         padding: 0.125rem 0.5rem;
         background-color: #ffb;
         color: black;
       }
       .navbar-nav {
-        margin-right: 2em;
+        padding-left: 1rem;
         .nav-link {
           color: $nav-link-color;
         }
@@ -40,8 +46,12 @@ $nav-bg-color: black;
     .container {
       margin: 0;
       .navbar-collapse {
+        .form {
+          margin-left: auto;
+        }
         .navbar-nav {
           margin-left: auto;
+          margin-right: 2em;
         }
       }
     }

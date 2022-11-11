@@ -21,7 +21,7 @@ import "./navbar.scss";
 import React from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-// import logo from "../../assets/logo.svg";
+import logo from "../../assets/Asset 2.png";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 const NavbarItems = [
   {
@@ -62,7 +62,7 @@ export default function Navbar() {
     <CNavbar style={{ padding: "1rem 0" }} expand="lg" className="bg-nav">
       <CContainer className="container" fluid>
         <CNavbarBrand className="navbar_brand" href="#">
-          {/* <img src={logo} width="80px" alt="logo" /> */}
+          <img src={logo} className="imgLogo" alt="logo" />
         </CNavbarBrand>
         <CNavbarToggler
           className="navbar_toggle"
@@ -88,7 +88,7 @@ export default function Navbar() {
               </>
             ))}
           </CNavbarNav>
-          <CForm style={{ marginLeft: "auto" }} className="d-flex">
+          <CForm className="form d-flex">
             <CFormInput
               type="search"
               className="me-2 search_input"
