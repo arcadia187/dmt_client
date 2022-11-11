@@ -6,7 +6,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 400px;
+    height: 200px;
+    flex-direction: column;
 }
 
 
@@ -53,7 +54,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    flex-basis: 33.333333%;
+    flex-basis: 25%;
     align-items: center;
     margin-top: 20px;
     min-height: 500px;
@@ -78,4 +79,9 @@
     color: white;
     padding: 5px 10px;
     font-size: 20px;
+}
+
+.btnContainter {
+    display: flex;
+    justify-content: center;
 }
