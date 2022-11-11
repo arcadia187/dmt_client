@@ -6,14 +6,16 @@ body {
     --yellow-color: #FEE092;
     --bodyCopy: 16px;
     --heading-lg: 50px;
-    --heading-md: 28px;
-    --heading-sm:24px;
-    --heading-sm-wt:500;
-    --heading-lg-wt:700;
-    --track-heading-color:#8bb63e;
-    --para-sm:14px;
-    --para-lg:22px;
-    --btn-border:1.25rem;
+    --heading-sm: 24px;
+    --heading-sm-wt: 500;
+    --heading-lg-wt: 700;
+    --track-heading-color: #8bb63e;
+    --para-sm: 14px;
+    --para-lg: 22px;
+    --btn-border: 1.25rem;
+    --white-color: #fff;
+    --btn-padding: 5px 5px;
+
 
 }
 
@@ -26,6 +28,7 @@ body {
 .heading {
     font-size: var(--heading-lg);
     font-weight: bold;
+    color: var(--white-color);
 }
 .dim {
     color: #81888f;
@@ -52,14 +55,20 @@ body {
     background-color: transparent;
     font-size: var(--bodyCopy);
     border-radius: var(--btn-border);
+    padding: var(--btn-padding);
 }
 
-.para{
+.para {
     line-height: 1.5rem;
     letter-spacing: 1px;
+
 }
 
-.blackColorLayer{
+.whiteColor {
+    color: var(--white-color);
+}
+
+.blackColorLayer {
     background: rgba(0, 0, 0, 0.6) !important;
 }
 
@@ -70,24 +79,34 @@ body {
 }
 
 .albumBtn {
-    width: 120px;
-    padding: 0.1rem;
-    color: black;
-    font-size: var(--para-sm);
-    background: var(--yellow-color);
-    font-weight: 300;
-  }
+    color: var(--darkBlue-color);
+    border: none;
+    background-color: var(--yellow-color);
+    font-size: var(--bodyCopy);
+    border-radius: var(--btn-border);
+    padding: var(--btn-padding);
+}
 
-  .boldName{
+.albumBtn:hover {
+    border: transparent;
+    font-weight: bold;
+    box-shadow: 0 0 100px rgba(219, 166, 46, .8);
+
+
+}
+
+.boldName {
     font-size: var(--para-lg);
-    font-weight:var(--heading-lg-wt);
+    font-weight: var(--heading-lg-wt);
     text-transform: uppercase;
-  }
+}
+
+
 
 @media screen and (min-width:993px) {
     .albumBtn {
         width: 120px;
         font-size: var(--para-sm);
         margin-top: 1rem;
-      }
+    }
 }
