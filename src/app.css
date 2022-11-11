@@ -6,6 +6,7 @@ body {
     --yellow-color: #FEE092;
     --bodyCopy: 16px;
     --heading-lg: 50px;
+    --heading-md: 28px;
     --heading-sm:24px;
     --heading-sm-wt:500;
     --heading-lg-wt:700;
@@ -26,7 +27,18 @@ body {
     font-size: var(--heading-lg);
     font-weight: bold;
 }
+.dim {
+    color: #81888f;
+  }
 
+  .mediumHeading{
+    font-size: var(--para-sm);
+    font-weight: 500;
+  }
+.subhheading{
+    font-size: var(--heading-md);
+    font-weight: bold;
+}
 .bodycopy {
     font-size: var(--bodyCopy);
     line-height: 20px;

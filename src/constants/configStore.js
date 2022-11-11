@@ -1,38 +1,33 @@
-import {
-  combineReducers,
-  configureStore,
-  getDefaultMiddleware,
-} from "@reduxjs/toolkit";
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
+import { createStore } from "redux";
+import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import userReducer from "./features/userSlice";
 const persistConfig = {
   key: "root",
   storage,
 };
 
-const reducers = combineReducers({
-  userReducer,
-});
+const initial_state = {
+  uservalue: {},
+  token: {},
+};
 
-const persistedReducer = persistReducer(persistConfig, reducers);
-let store = configureStore({
-  reducer: persistedReducer,
-  middleware: getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }),
-});
+function reducer(state = initial_state, action) {
+  switch (action.type) {
+    case "user":
+      console.log(action.value.user.data);
+      return {
+        ...state,
+        uservalue: action.value.user.data,
+        token: action.value.token,
+      };
+
+    default:
+      return state;
+  }
+}
+
+const persistedReducer = persistReducer(persistConfig, reducer);
+let store = createStore(persistedReducer);
 let persistor = persistStore(store);
 
 export { store, persistor };

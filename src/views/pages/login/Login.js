@@ -16,8 +16,10 @@ import {
 import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
 import { server_url } from "src/constants/variables";
+import axios from "axios";
+import { connect } from "react-redux";
 
-const Login = () => {
+const Login = (props) => {
   let navigate = useNavigate();
   // Once submitted then show validation
   const [userObj, setUserObj] = useState("");
@@ -30,12 +32,6 @@ const Login = () => {
     return isValid.isEmailValid && isValid.isPasswordValid;
   };
 
-  //creating function to load ip address from the API
-  const getData = async () => {
-    const res = await axios.get("https://geolocation-db.com/json/");
-    console.log(res.data);
-    setUserObj((oldObj) => ({ ...oldObj, ["ip"]: res.data.IPv4 }));
-  };
   const handleForm = (e) => {
     const { target } = e;
     const name = target.name;
@@ -87,11 +83,15 @@ const Login = () => {
       console.log("invalid inputs");
       return;
     }
-    // const userData = await axios.post(server_url + "auth/signup", userObj);
-    // if (userData.data.newUser.success === false) {
-    //   navigate("/500");
-    // }
-    // navigate("/login");
+    const userData = await axios.post(server_url + "auth/login", userObj);
+    if (userData.data.user?.success === false) {
+      navigate("/500");
+    }
+    // login successfull
+    // props.dispatch(userAdded(userData.data));
+
+    props.dispatch({ type: "user", value: userData.data });
+    navigate("/");
   };
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
@@ -176,4 +176,8 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+  uservalue: state.uservalue,
+  token: state.token,
+});
+export default connect(mapStateToProps)(Login);
