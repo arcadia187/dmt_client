@@ -8,7 +8,7 @@ const Shop = () => {
   const getData = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}product?isFirst=1&limit=3`
+        `${process.env.REACT_APP_SERVER_URL}product?isFirst=1&limit=6`
       );
       console.log(data);
       setResults(data.data);
