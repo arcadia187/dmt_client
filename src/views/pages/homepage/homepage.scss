@@ -31,6 +31,16 @@
   background-blend-mode: lighten;
 }
 
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  .galleryImg {
+    box-shadow: 0 10px 100px rgba(0, 0, 0, 0.4);
+  }
+}
+
 @media screen and (min-width: 993px) {
   .container {
     padding-top: 0.225rem;

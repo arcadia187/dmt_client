@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
         <img className="productImage" src={product.coverImage} />
       </div>
       <div className="productItemContainerFooter">
-        <div className="productItemContainerTitle bodyCopy whiteColor">
+        <div className="productItemContainerTitle boldName whiteColor">
           {product.title.length > 20
             ? `${product.title.slice(0, 20)}...`
             : product.title}

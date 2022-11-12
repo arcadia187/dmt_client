@@ -18,7 +18,15 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import Album from "src/components/album/Album";
 import Song from "src/components/song/Song";
 import Shop from "src/components/shop/Shop";
-export default function Homepage() {
+import Player from "src/components/music/Player";
+import { connect } from "react-redux";
+import { useEffect } from "react";
+import Footer from "src/components/footer/Footer";
+import img from "../../../assets/Screenshot (48).png";
+function Homepage(props) {
+  useEffect(() => {
+    console.log(props);
+  }, [props]);
   return (
     <CContainer
       fluid
@@ -41,6 +49,7 @@ export default function Homepage() {
           <CButton className="secondryBtn">VIEW OUR ALBUMS</CButton>
         </CCol>
       </CRow>
+      <br />
       <CRow className="justify-content-center ">
         <CCol className="welcome_box" lg={6}>
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
@@ -49,6 +58,7 @@ export default function Homepage() {
           <Album />
         </CCol>
       </CRow>
+      <br />
       <CRow className="justify-content-center ">
         <CCol className="welcome_box" lg={6}>
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
@@ -57,6 +67,7 @@ export default function Homepage() {
           <Song />
         </CCol>
       </CRow>
+      <br />
       <CRow className="justify-content-center ">
         <CCol className="welcome_box" lg={6}>
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
@@ -65,6 +76,80 @@ export default function Homepage() {
           <Shop />
         </CCol>
       </CRow>
+      <br />
+      <CRow className="justify-content-center ">
+        <CCol className="welcome_box" lg={6}>
+          <h2 className="bold_heading" style={{ textAlign: "center" }}>
+            SAMPLE
+          </h2>
+          <Player url="/Srivalli(PagalWorld.com.se).mp3" />
+        </CCol>
+      </CRow>
+      <br />
+      <CRow className="justify-content-center  ">
+        <CCol className="welcome_box">
+          <h2 className="bold_heading" style={{ textAlign: "center" }}>
+            TOP
+          </h2>
+          <div className="gallery">
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+            <div className="galleryImg">
+              <img src={img} alt="" />
+            </div>
+          </div>
+        </CCol>
+      </CRow>
+      <br />
+      <CRow className="justify-content-center  ">
+        <CCol className="welcome_box">
+          <h2 className="bold_heading" style={{ textAlign: "center" }}>
+            CONTACT
+          </h2>
+          <Footer />
+        </CCol>
+      </CRow>
     </CContainer>
   );
 }
+
+const mapStateToProps = (state) => ({
+  uservalue: state.uservalue,
+  token: state.token,
+});
+
+export default connect(mapStateToProps)(Homepage);

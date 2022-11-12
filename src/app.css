@@ -14,7 +14,9 @@ body {
     --para-lg: 22px;
     --btn-border: 1.25rem;
     --white-color: #fff;
-    --btn-padding: 5px 5px
+    --btn-padding: 5px 5px;
+
+
 }
 
 * {
@@ -28,7 +30,18 @@ body {
     font-weight: bold;
     color: var(--white-color);
 }
+.dim {
+    color: #81888f;
+  }
 
+  .mediumHeading{
+    font-size: var(--para-sm);
+    font-weight: 500;
+  }
+.subhheading{
+    font-size: var(--heading-md);
+    font-weight: bold;
+}
 .bodycopy {
     font-size: var(--bodyCopy);
     line-height: 20px;
