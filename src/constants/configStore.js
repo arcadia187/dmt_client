@@ -14,11 +14,15 @@ const initial_state = {
 function reducer(state = initial_state, action) {
   switch (action.type) {
     case "user":
-      console.log(action.value.user.data);
       return {
         ...state,
         uservalue: action.value.user.data,
         token: action.value.token,
+      };
+    case "currencyRate":
+      return {
+        ...state,
+        currencyRate: action.payload,
       };
 
     default:

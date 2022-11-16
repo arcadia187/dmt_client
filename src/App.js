@@ -18,6 +18,7 @@ const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
 const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 const HomePage = React.lazy(() => import("./views/pages/homepage/Homepage"));
 const Shop = React.lazy(() => import("./views/pages/shop/shop"));
+const Product = React.lazy(() => import("./views/pages/product/product"));
 export default function App() {
   return (
     <Router>
@@ -41,6 +42,11 @@ export default function App() {
             path="/shop"
             name="Shop"
             element={<DefaultLayout children={<Shop />}></DefaultLayout>}
+          />
+          <Route
+            path="/:id"
+            name="Product"
+            element={<DefaultLayout children={<Product />}></DefaultLayout>}
           />
         </Routes>
       </Suspense>

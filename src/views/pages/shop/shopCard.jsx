@@ -1,8 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import PriceCalculator from "src/components/priceCalculator/priceCalculator";
 
 const ProductCard = ({ product }) => {
   return (
-    <div className="productItemContainer">
+    <Link to={`/${product._id}`} className="productItemContainer">
       <div className="productItemContainerHeader">
         {product.discount &&
         new Date(product.discount.endDate) > new Date(Date.now()) ? (
@@ -22,7 +24,9 @@ const ProductCard = ({ product }) => {
           {product.discount &&
           new Date(product.discount.endDate) > new Date(Date.now()) ? (
             <div>
-              <span className="strikeThrough">{product.price}</span>{" "}
+              <span className="strikeThrough">
+                <PriceCalculator price={product.price} />{" "}
+              </span>{" "}
               {product.price - product.discount.value}
             </div>
           ) : (
@@ -33,7 +37,7 @@ const ProductCard = ({ product }) => {
           <button className="albumBtn">Add to cart</button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
