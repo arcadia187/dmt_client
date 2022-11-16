@@ -83,21 +83,29 @@ const Login = (props) => {
       console.log("invalid inputs");
       return;
     }
-    const userData = await axios.post(server_url + "auth/login", userObj);
-    if (userData.data.user?.success === false) {
-      navigate("/500");
+    try {
+      const userresult = await axios.post(server_url + "auth/login", userObj);
+      const userData = userresult.data;
+      console.log(userData);
+      props.dispatch({ type: "user", value: userData });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      if (error.response.status === 500) {
+        navigate("/500");
+      }
+      document.getElementById("message").innerHTML = error.response.data;
     }
-    // login successfull
-    // props.dispatch(userAdded(userData.data));
-
-    props.dispatch({ type: "user", value: userData.data });
-    navigate("/");
   };
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={8}>
+            <p
+              id="message"
+              style={{ color: "red", fontSize: "18px", fontWeight: "500" }}
+            ></p>
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
