@@ -1,43 +1,28 @@
 import { CButton } from "@coreui/react";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { server_url } from "src/constants/variables";
 import "./song.scss";
 
-const songs = [
-  {
-    id: 1,
-    name: "illegal experiment",
-  },
-  {
-    id: 2,
-    name: "badland",
-  },
-  {
-    id: 3,
-    name: "karma incoming",
-  },
-  {
-    id: 4,
-    name: "medicinal conciousness",
-  },
-  {
-    id: 5,
-    name: "badland",
-  },
-  {
-    id: 6,
-    name: "Karma incoming",
-  },
-  {
-    id: 7,
-    name: "illegal experiment",
-  },
-  {
-    id: 8,
-    name: "karma incoming",
-  },
-];
 export default function Song() {
   const [limit, setLimit] = useState(4);
+  const [songs, setSongs] = useState([]);
+  const fetchSongs = async () => {
+    try {
+      const songData = await axios.get(server_url + "product/albums?limit=8");
+
+      if (!songData.data.success) return;
+      console.log(songData.data.data);
+      setSongs(songData.data.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchSongs();
+  }, []);
+
+  console.log(songs);
   return (
     <div className="songBox">
       {songs?.map((e, i) =>
@@ -52,7 +37,7 @@ export default function Song() {
             }}
             className="song"
           >
-            <h3 className="boldName">{e.name}</h3>
+            <h3 className="boldName">{e.title}</h3>
             <CButton className="albumBtn secondryBtn">GET IT NOW</CButton>
           </div>
         ) : (
