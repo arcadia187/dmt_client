@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import PriceCalculator from "src/components/priceCalculator/priceCalculator";
 
 const ProductCard = ({ product }) => {
+  console.log(product);
   return (
     <Link to={`/${product._id}`} className="productItemContainer">
       <div className="productItemContainerHeader">
         {product.discount &&
-        new Date(product.discount.endDate) > new Date(Date.now()) ? (
+        new Date(product.discount?.endDate) > new Date(Date.now()) ? (
           <span class="notify-badge">Sale!</span>
         ) : (
           ""

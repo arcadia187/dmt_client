@@ -20,11 +20,14 @@ function reducer(state = initial_state, action) {
         uservalue: action.value,
         token: action.value.token,
       };
+
+
     case "currencyRate":
       return {
         ...state,
         currencyRate: action.payload,
       };
+
 
     default:
       return state;

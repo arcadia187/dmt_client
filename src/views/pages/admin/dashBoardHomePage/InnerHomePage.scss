@@ -1,0 +1,15 @@
+.dashBoardHomePage {
+  width: 100%;
+  flex: 4;
+  overflow: hidden;
+  padding: 10px;
+  .dashBoardHomePageWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .dashBhomeWidgets {
+    display: flex;
+  }
+}

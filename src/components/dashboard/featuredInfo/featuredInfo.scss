@@ -1,0 +1,48 @@
+.dashBoardfeatured {
+  width: 100%;
+  .dashBoardfeaturedWrapper {
+    display: flex;
+    width: 100%;
+    margin-top: 15px;
+    flex-wrap: wrap;
+
+    .dashBoardfeaturedItem {
+      flex: 1;
+      min-width: 250px;
+      -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+      box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+      height: 30vh;
+      padding: 30px;
+
+      margin-right: 10px;
+      margin-top: 10px;
+      .dashBoardfeaturedSub {
+        font-size: 0.8rem;
+        color: gray;
+      }
+      .dashBoardfeaturedMoneyContainer {
+        display: flex;
+        align-items: center;
+
+        .dashBoardfeaturedMoney {
+          margin-top: 0.5rem;
+          margin-bottom: 0.6rem;
+          font-size: 2.2rem;
+          font-weight: bolder;
+        }
+        .dashBoardfeaturedMoneyRate {
+          margin-left: 3em;
+          display: flex;
+          align-items: center;
+          .dashBoardfeaturedIcon {
+            font-size: 0.75rem;
+            color: green;
+          }
+          .negative {
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}
