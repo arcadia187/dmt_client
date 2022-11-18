@@ -1,11 +1,12 @@
 import React from "react";
 
 const ProductCard = ({ product }) => {
+  console.log(product);
   return (
     <div className="productItemContainer">
       <div className="productItemContainerHeader">
         {product.discount &&
-        new Date(product.discount.endDate) > new Date(Date.now()) ? (
+        new Date(product.discount?.endDate) > new Date(Date.now()) ? (
           <span class="notify-badge">Sale!</span>
         ) : (
           ""

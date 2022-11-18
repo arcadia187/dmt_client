@@ -1,0 +1,42 @@
+.dashBsideBar {
+  min-height: 100vh;
+  width: 300px;
+  position: sticky;
+  top: 50px;
+  background: var(--darkBlue-color);
+  .dashBsideBarWrapper {
+    padding: 20px;
+    color: var(--brown-color);
+    .dashBsideBarMenu {
+      margin-top: 10px;
+      .dashBsideBarMenuTitle {
+        font-size: 13px;
+        color: white;
+      }
+      .dashBsideBarMenuList {
+        padding-top: 5px;
+        .dashBSideBarLink {
+          text-decoration: none;
+          color: var(--brown-color);
+        }
+
+        .dashBsideBarMenuListItems {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          font-size: medium;
+          border-radius: 5px;
+          margin: 2px;
+          .dashBsideBarMenuListItemsIcon {
+            margin-right: 4px;
+          }
+
+          &:hover {
+            background-color: rgb(231, 231, 248);
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}

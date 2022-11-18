@@ -20,6 +20,7 @@ function reducer(state = initial_state, action) {
         uservalue: action.value,
         token: action.value.token,
       };
+
     default:
       return state;
   }

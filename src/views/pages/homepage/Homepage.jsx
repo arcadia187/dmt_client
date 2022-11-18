@@ -69,7 +69,7 @@ function Homepage(props) {
       </CRow>
       <br />
       <CRow className="justify-content-center ">
-        <CCol className="welcome_box" lg={6}>
+        <CCol className="welcome_box" lg={12}>
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
             SHOP
           </h2>
