@@ -17,7 +17,7 @@ import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
 import { useState } from "react";
 import moment from "moment/moment";
-import useEffect from "react";
+import { useEffect } from "react";
 import axios from "axios";
 
 const Register = () => {
@@ -25,6 +25,7 @@ const Register = () => {
   // Once submitted then show validation
   const [userObj, setUserObj] = useState("");
   const [IsOnceSubmitted, setIsOnceSubmitted] = useState(false);
+  const [confirmEmail, setConfirmEmail] = useState(false);
   const [isValid, setValidation] = useState({
     isNameValid: false,
     isEmailValid: false,
@@ -46,13 +47,13 @@ const Register = () => {
   const getData = async () => {
     const res = await axios.get("https://geolocation-db.com/json/");
     console.log(res.data);
-    setUserObj((oldObj) => ({ ...oldObj, ["ip"]: res.data.IPv4 }));
+    setUserObj((oldObj) => ({ ...oldObj, ["ip"]: res.data }));
   };
 
-  // useEffect(() => {
-  //   //passing getData method to the lifecycle method
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    //   //passing getData method to the lifecycle method
+    getData();
+  }, []);
   const handleForm = (e) => {
     const { target } = e;
     const name = target.name;
@@ -152,102 +153,118 @@ const Register = () => {
       console.log("invalid inputs");
       return;
     }
+
     const userData = await axios.post(server_url + "auth/signup", userObj);
-    if (userData.data.newUser.success === false) {
-      navigate("/500");
-    }
-    navigate("/login");
+    if (userData.data.newUser.success === true) {
+      setConfirmEmail(true);
+      // navigate("/login");
+    } else navigate("/500");
   };
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
-      <CContainer>
-        <CRow className="justify-content-center">
-          <CCol md={9} lg={7} xl={6}>
-            <CCard className="mx-4">
-              <CCardBody className="p-4">
-                <CForm onSubmit={handleSubmit}>
-                  <h1>Register</h1>
-                  <p className="text-medium-emphasis">Create your account</p>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>
-                      <CIcon icon={cilUser} />
-                    </CInputGroupText>
-                    <CFormInput
-                      placeholder="Name"
-                      autoComplete="name"
-                      onChange={handleForm}
-                      required={true}
-                      name="name"
-                      feedbackInvalid="Please provide a valid name."
-                      invalid={!isValid.isNameValid && IsOnceSubmitted}
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>@</CInputGroupText>
-                    <CFormInput
-                      placeholder="Email"
-                      autoComplete="email"
-                      onChange={handleForm}
-                      required
-                      name="email"
-                      feedbackInvalid="Please provide a valid email."
-                      invalid={!isValid.isEmailValid && IsOnceSubmitted}
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>
-                      <CIcon icon={cilLockLocked} />
-                    </CInputGroupText>
-                    <CFormInput
-                      type="password"
-                      placeholder="Password"
-                      autoComplete="new-password"
-                      onChange={handleForm}
-                      required={true}
-                      name="password"
-                      feedbackInvalid="Password should be atleast 6 characters long, with atleast 1 special character and atleast one number."
-                      invalid={!isValid.isPasswordValid && IsOnceSubmitted}
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-4">
-                    <CInputGroupText>
-                      <CIcon icon={cilLockLocked} />
-                    </CInputGroupText>
-                    <CFormInput
-                      type="password"
-                      placeholder="Repeat password"
-                      autoComplete="new-password"
-                      onChange={handleForm}
-                      required
-                      name="confirmPassword"
-                      feedbackInvalid="Password did not match."
-                      invalid={
-                        !isValid.isConfirmPassWordValid && IsOnceSubmitted
-                      }
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>DOB</CInputGroupText>
-                    <CFormInput
-                      feedbackInvalid="Please provide a valid date of birth."
-                      invalid={!isValid.isDOBValid && IsOnceSubmitted}
-                      type="date"
-                      name="dateOfBirth"
-                      required
-                      onChange={handleForm}
-                    />
-                  </CInputGroup>
-                  <div className="d-grid">
-                    <CButton type="submit" color="success">
-                      Create Account
-                    </CButton>
-                  </div>
-                </CForm>
-              </CCardBody>
-            </CCard>
-          </CCol>
-        </CRow>
-      </CContainer>
+      {!confirmEmail ? (
+        <CContainer>
+          <CRow className="justify-content-center">
+            <CCol md={9} lg={7} xl={6}>
+              <CCard className="mx-4">
+                <CCardBody className="p-4">
+                  <CForm onSubmit={handleSubmit}>
+                    <h1>Register</h1>
+                    <p className="text-medium-emphasis">Create your account</p>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon={cilUser} />
+                      </CInputGroupText>
+                      <CFormInput
+                        placeholder="Name"
+                        autoComplete="name"
+                        onChange={handleForm}
+                        required={true}
+                        name="name"
+                        feedbackInvalid="Please provide a valid name."
+                        invalid={!isValid.isNameValid && IsOnceSubmitted}
+                      />
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>@</CInputGroupText>
+                      <CFormInput
+                        placeholder="Email"
+                        autoComplete="email"
+                        onChange={handleForm}
+                        required
+                        name="email"
+                        feedbackInvalid="Please provide a valid email."
+                        invalid={!isValid.isEmailValid && IsOnceSubmitted}
+                      />
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon={cilLockLocked} />
+                      </CInputGroupText>
+                      <CFormInput
+                        type="password"
+                        placeholder="Password"
+                        autoComplete="new-password"
+                        onChange={handleForm}
+                        required={true}
+                        name="password"
+                        feedbackInvalid="Password should be atleast 6 characters long, with atleast 1 special character and atleast one number."
+                        invalid={!isValid.isPasswordValid && IsOnceSubmitted}
+                      />
+                    </CInputGroup>
+                    <CInputGroup className="mb-4">
+                      <CInputGroupText>
+                        <CIcon icon={cilLockLocked} />
+                      </CInputGroupText>
+                      <CFormInput
+                        type="password"
+                        placeholder="Repeat password"
+                        autoComplete="new-password"
+                        onChange={handleForm}
+                        required
+                        name="confirmPassword"
+                        feedbackInvalid="Password did not match."
+                        invalid={
+                          !isValid.isConfirmPassWordValid && IsOnceSubmitted
+                        }
+                      />
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>DOB</CInputGroupText>
+                      <CFormInput
+                        feedbackInvalid="Please provide a valid date of birth."
+                        invalid={!isValid.isDOBValid && IsOnceSubmitted}
+                        type="date"
+                        name="dateOfBirth"
+                        required
+                        onChange={handleForm}
+                      />
+                    </CInputGroup>
+                    <div className="d-grid">
+                      <CButton type="submit" color="success">
+                        Create Account
+                      </CButton>
+                    </div>
+                  </CForm>
+                </CCardBody>
+              </CCard>
+            </CCol>
+          </CRow>
+        </CContainer>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100vw",
+            height: "100vh",
+          }}
+        >
+          Please check your email inbox and click on the given link to verify
+          and then login.
+        </div>
+      )}
     </div>
   );
 };

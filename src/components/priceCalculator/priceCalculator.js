@@ -4,40 +4,33 @@ import { connect } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
+import { server_url } from "src/constants/variables";
 const PriceCalculator = ({ price, user, dispatch, currencyRate }) => {
-  const [currency, setCurrency] = useState(null);
-  const country = "GR";
-  const baseCurrency = "IN";
-  //Fetches the ISO of the user country which is then passed to the getCounrtyCurrency to fetch the currency rate for the country
-  const getCountryCurrency = () => {
-    const currency = getAllInfoByISO(country);
-    setCurrency(currency);
-  };
-  const getConvertedPrice = async () => {
+  const getCurrencyRate = async () => {
     try {
-      if (!currency) {
-        return;
+      if (!currencyRate) {
+        const { data } = await axios.get(`${server_url}currency/EUR`);
+        console.log(data);
+        dispatch({ type: "currencyRate", payload: data.data.rate });
       }
-      const { data } = await axios.get(
-        `https://api.exchangerate.host/convert?from=${currency.currency}&to=${baseCurrency}&amount=1`
-      );
-      console.log(data);
-      dispatch({ type: "currencyRate", payload: data.result });
     } catch (e) {
       console.log(e);
     }
   };
+
   useEffect(() => {
-    getCountryCurrency();
+    getCurrencyRate();
   }, []);
-  useEffect(() => {
-    getConvertedPrice();
-  }, [currency]);
-  console.log(currency);
-  if (!currency) {
+  console.log(user.data.ip.country_name);
+  if (!currencyRate) {
     return "loading";
+  } else {
+    if (user.data.ip.country_name === "India") {
+      return `₹${price}`;
+    } else {
+      return `€${Math.ceil(price / currencyRate)}`;
+    }
   }
-  return `${currency.symbol}${Math.ceil(price * currencyRate)}`;
 };
 
 const mapStatToProps = (state) => {

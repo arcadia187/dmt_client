@@ -25,12 +25,12 @@ const ProductCard = ({ product }) => {
           new Date(product.discount.endDate) > new Date(Date.now()) ? (
             <div>
               <span className="strikeThrough">
-                <PriceCalculator price={product.price} />{" "}
+                <PriceCalculator price={product.price} />
               </span>{" "}
-              {product.price - product.discount.value}
+              <PriceCalculator price={product.price - product.discount.value} />
             </div>
           ) : (
-            product.price
+            <PriceCalculator price={product.price} />
           )}
         </div>
         <div className="btnContainer">

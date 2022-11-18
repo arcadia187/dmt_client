@@ -15,8 +15,9 @@ body {
     --btn-border: 1.25rem;
     --white-color: #fff;
     --btn-padding: 5px 5px;
-
-
+    --btn-font: 16px;
+    --btn-height: 50px;
+    --btn-width: 100px
 }
 
 * {
@@ -30,18 +31,21 @@ body {
     font-weight: bold;
     color: var(--white-color);
 }
+
 .dim {
     color: #81888f;
-  }
+}
 
-  .mediumHeading{
+.mediumHeading {
     font-size: var(--para-sm);
     font-weight: 500;
-  }
-.subhheading{
+}
+
+.subhheading {
     font-size: var(--heading-md);
     font-weight: bold;
 }
+
 .bodycopy {
     font-size: var(--bodyCopy);
     line-height: 20px;
@@ -53,9 +57,11 @@ body {
     color: var(--yellow-color);
     border: 1px solid var(--yellow-color);
     background-color: transparent;
-    font-size: var(--bodyCopy);
+    font-size: var(--btn-font) !important;
     border-radius: var(--btn-border);
     padding: var(--btn-padding);
+    height: var(--btn-height);
+    width: var(--btn-width);
 }
 
 .para {
@@ -82,9 +88,11 @@ body {
     color: var(--darkBlue-color);
     border: none;
     background-color: var(--yellow-color);
-    font-size: var(--bodyCopy);
+    font-size: var(--btn-font) !important;
     border-radius: var(--btn-border);
-    padding: var(--btn-padding);
+    padding: var(--btn-padding) !important;
+    height: var(--btn-height);
+    width: var(--btn-width);
 }
 
 .albumBtn:hover {
@@ -101,7 +109,9 @@ body {
     text-transform: uppercase;
 }
 
-
+a {
+    text-decoration: none;
+}
 
 @media screen and (min-width:993px) {
     .albumBtn {
@@ -109,4 +119,12 @@ body {
         font-size: var(--para-sm);
         margin-top: 1rem;
     }
+}
+
+.marginTop {
+    margin-top: 5%;
+}
+
+.marginLeft {
+    margin-left: 5%;
 }
