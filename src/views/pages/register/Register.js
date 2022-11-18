@@ -17,7 +17,7 @@ import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
 import { useState } from "react";
 import moment from "moment/moment";
-import useEffect from "react";
+import { useEffect } from "react";
 import axios from "axios";
 
 const Register = () => {
@@ -47,13 +47,13 @@ const Register = () => {
   const getData = async () => {
     const res = await axios.get("https://geolocation-db.com/json/");
     console.log(res.data);
-    setUserObj((oldObj) => ({ ...oldObj, ["ip"]: res.data.IPv4 }));
+    setUserObj((oldObj) => ({ ...oldObj, ["ip"]: res.data }));
   };
 
-  // useEffect(() => {
-  //   //passing getData method to the lifecycle method
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    //   //passing getData method to the lifecycle method
+    getData();
+  }, []);
   const handleForm = (e) => {
     const { target } = e;
     const name = target.name;
@@ -153,6 +153,7 @@ const Register = () => {
       console.log("invalid inputs");
       return;
     }
+
     const userData = await axios.post(server_url + "auth/signup", userObj);
     if (userData.data.newUser.success === true) {
       setConfirmEmail(true);

@@ -15,6 +15,7 @@ const loading = (
 const DefaultLayout = React.lazy(() => import("./layout/DefaultLayout"));
 
 // Pages
+const Product = React.lazy(() => import("./views/pages/product/product"));
 const Login = React.lazy(() => import("./views/pages/login/Login"));
 const Register = React.lazy(() => import("./views/pages/register/Register"));
 const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
@@ -58,6 +59,11 @@ function App(props) {
             path="*"
             name="Home"
             element={<DefaultLayout children={<HomePage />}></DefaultLayout>}
+          />
+          <Route
+            path="/:id"
+            name="Product"
+            element={<DefaultLayout children={<Product />}></DefaultLayout>}
           />
         </Routes>
       </Suspense>

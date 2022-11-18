@@ -1,9 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import PriceCalculator from "src/components/priceCalculator/priceCalculator";
 
 const ProductCard = ({ product }) => {
   console.log(product);
   return (
-    <div className="productItemContainer">
+    <Link to={`/${product._id}`} className="productItemContainer">
       <div className="productItemContainerHeader">
         {product.discount &&
         new Date(product.discount?.endDate) > new Date(Date.now()) ? (
@@ -23,18 +25,20 @@ const ProductCard = ({ product }) => {
           {product.discount &&
           new Date(product.discount.endDate) > new Date(Date.now()) ? (
             <div>
-              <span className="strikeThrough">{product.price}</span>{" "}
-              {product.price - product.discount.value}
+              <span className="strikeThrough">
+                <PriceCalculator price={product.price} />
+              </span>{" "}
+              <PriceCalculator price={product.price - product.discount.value} />
             </div>
           ) : (
-            product.price
+            <PriceCalculator price={product.price} />
           )}
         </div>
         <div className="btnContainer">
           <button className="albumBtn">Add to cart</button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
