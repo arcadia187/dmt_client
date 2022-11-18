@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 const Product = ({ token }) => {
   const [product, setProduct] = useState(null);
   const [varient, setVerient] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   const getProduct = async () => {
     try {
@@ -31,6 +32,7 @@ const Product = ({ token }) => {
     const productObj = {
       product: product._id,
       varient,
+      quantity,
     };
     const { data } = await axios.post(
       `${server_url}user/add-product-to-cart`,
@@ -101,7 +103,11 @@ const Product = ({ token }) => {
                                     size: el.size,
                                   });
                                 }}
-                                className="marginLeft"
+                                className={`marginLeft ${
+                                  varient && varient.color === elm
+                                    ? "active"
+                                    : null
+                                } `}
                                 style={{
                                   backgroundColor: elm,
                                   height: "2rem",
@@ -119,18 +125,41 @@ const Product = ({ token }) => {
               </div>
             </div>
           ) : null}
+          <div className="quantityContainer marginTop subhheading">
+            <div
+              onClick={() => {
+                const temp = quantity + 1;
+                setQuantity(temp);
+              }}
+            >
+              +
+            </div>
+            <div>{quantity}</div>
+            <div
+              onClick={() => {
+                if (quantity <= 1) {
+                  return;
+                }
+                const temp = quantity - 1;
+                setQuantity(temp);
+              }}
+            >
+              -
+            </div>
+          </div>
           <button
-            className="albumBtn"
+            className={`${!varient ? "disabled" : null} albumBtn marginTop`}
+            disabled={!varient ? true : false}
             onClick={() => {
               handleAddToCart();
             }}
           >
             Add to cart <ShoppingCartIcon fontSize="small" />
           </button>
-          <div className="marginTop bodycopy">Pay using</div>
+          <div className="marginTop bodycopy">Pay securly using </div>
           <div className="bodycopy paymentImagesContainer marginTop">
             <img className="paymentImage" src={PaypalLogo} />
-            <img className="paymentImage" src={RazorpayLogo} />
+            <img className="paymentImage marginLeft" src={RazorpayLogo} />
           </div>
         </div>
       </div>

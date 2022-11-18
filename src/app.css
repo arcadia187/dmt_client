@@ -128,3 +128,13 @@ a {
 .marginLeft {
     margin-left: 5%;
 }
+
+.disabled {
+    color: #6d6d6d;
+}
+
+.disabled:hover {
+    box-shadow: none !important;
+    font-weight: normal !important;
+
+}
