@@ -14,12 +14,12 @@ const initial_state = {
 function reducer(state = initial_state, action) {
   switch (action.type) {
     case "user":
-      console.log(action.value);
       return {
         ...state,
-        uservalue: action.value,
+        uservalue: action.value.data,
         token: action.value.token,
       };
+
     case "currencyRate":
       return {
         ...state,

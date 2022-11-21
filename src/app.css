@@ -17,7 +17,8 @@ body {
     --btn-padding: 5px 5px;
     --btn-font: 16px;
     --btn-height: 50px;
-    --btn-width: 100px
+    --btn-width: 100px;
+    --heading-md: 20px
 }
 
 * {

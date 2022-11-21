@@ -13,6 +13,7 @@ const loading = (
 const DefaultLayout = React.lazy(() => import("./layout/DefaultLayout"));
 
 // Pages
+const Cart = React.lazy(() => import("./views/pages/cart/cart"));
 const Product = React.lazy(() => import("./views/pages/product/product"));
 const Login = React.lazy(() => import("./views/pages/login/Login"));
 const Register = React.lazy(() => import("./views/pages/register/Register"));
@@ -55,6 +56,11 @@ export default function App() {
             path="/:id"
             name="Product"
             element={<DefaultLayout children={<Product />}></DefaultLayout>}
+          />
+          <Route
+            path="/cart"
+            name="Cart"
+            element={<DefaultLayout children={<Cart />}></DefaultLayout>}
           />
         </Routes>
       </Suspense>
