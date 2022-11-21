@@ -2,6 +2,8 @@ import React, { Component, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./app.css";
+import DashBoardHome from "./views/pages/admin/home/Home";
+import { connect } from "react-redux";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -22,7 +24,8 @@ const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 const HomePage = React.lazy(() => import("./views/pages/homepage/Homepage"));
 const Shop = React.lazy(() => import("./views/pages/shop/shop"));
 const Verify = React.lazy(() => import("./views/pages/verify/Verify"));
-export default function App() {
+function App(props) {
+  console.log(props?.uservalue);
   return (
     <Router>
       <Suspense fallback={loading}>
@@ -48,6 +51,12 @@ export default function App() {
             element={<Verify />}
           />
           <Route
+            path="/admin/*"
+            element={
+              props?.uservalue?.role == "ADMIN" ? <DashBoardHome /> : <Login />
+            }
+          />
+          <Route
             path="*"
             name="Home"
             element={<DefaultLayout children={<HomePage />}></DefaultLayout>}
@@ -67,3 +76,10 @@ export default function App() {
     </Router>
   );
 }
+
+const mapStateToProps = (state) => ({
+  uservalue: state.uservalue,
+  token: state.token,
+});
+
+export default connect(mapStateToProps)(App);

@@ -1,0 +1,55 @@
+.dashBWidgetSm {
+  flex: 1;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  padding: 20px;
+  margin-right: 20px;
+  .dashBWidgetSmTitle {
+    font-size: 32px;
+    font-weight: bolder;
+  }
+  .dashBWidgetSmList {
+    display: flex;
+    padding-left: 0;
+    flex-direction: column;
+    .dashBWidgetSmListItem {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .dashBWidgetSmListItemImg {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .dashBWidgetSmListItemUser {
+        display: flex;
+        flex-direction: column;
+        .dashBWidgetSmListItemUsername {
+          font-size: 16px;
+          font-weight: bold;
+        }
+        .dashBWidgetSmListItemUserTitle {
+          font-size: 14px;
+          color: lightgray;
+        }
+      }
+      .dashBWidgetSmListItemButton {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        background: rgb(251, 251, 255);
+        &:hover {
+          background: rgb(231, 231, 248);
+        }
+        .dashBWidgetSmListItemIcon {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+}
