@@ -13,7 +13,7 @@ body {
     --track-heading-color: #8bb63e;
     --para-sm: 14px;
     --para-lg: 22px;
-    --brown-color:rgb(206, 203, 203);
+    --brown-color: rgb(206, 203, 203);
     --btn-border: 1.25rem;
     --white-color: #fff;
     --btn-padding: 5px 5px;
@@ -98,15 +98,18 @@ body {
     width: var(--btn-width);
 }
 
-.albumBtn:hover,.albumBtn:active,.albumBtn:focus-within {
+.albumBtn:hover,
+.albumBtn:active,
+.albumBtn:focus-within {
     border: transparent !important;
     color: black !important;
     box-shadow: 0 0 100px rgba(219, 166, 46, .8) !important;
     background: var(--yellow-color) !important;
 
 }
-.albumBtn:hover{
-   
+
+.albumBtn:hover {
+
     font-weight: bold !important;
 }
 

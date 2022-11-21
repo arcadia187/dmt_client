@@ -34,8 +34,10 @@ const ProductCard = ({ product }) => {
             <PriceCalculator price={product.price} />
           )}
         </div>
-        <div className="btnContainer">
-          <button className="albumBtn">Add to cart</button>
+        <div className="btnContainer marginTop">
+          <Link to={`/${product._id}`} className="albumBtn">
+            View
+          </Link>
         </div>
       </div>
     </Link>

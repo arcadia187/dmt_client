@@ -85,10 +85,10 @@ const Login = (props) => {
     }
     try {
       const userresult = await axios.post(server_url + "auth/login", userObj);
-      console.log(userresult);
+      // console.log({ userresult });
       const userData = userresult.data;
-      console.log(userData);
-      props.dispatch({ type: "user", value: userData.data });
+      console.log({ userData });
+      props.dispatch({ type: "user", value: userData });
       navigate("/");
     } catch (error) {
       console.log(error);
