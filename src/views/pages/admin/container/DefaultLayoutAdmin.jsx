@@ -8,7 +8,7 @@ export default function DefaultLayoutAdmin({ children }) {
       style={{ display: "flex", overflowX: "hidden" }}
     >
       <Sidebar />
-      <main>{children}</main>
+      <main style={{ width: "80%", height: "100vh" }}>{children}</main>
     </div>
   );
 }

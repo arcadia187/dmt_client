@@ -31,44 +31,6 @@ export default function AddNewProduct() {
     );
   }
 
-  const upload = (items) => {
-    items.forEach((item) => {
-      const fileName = new Date().getTime() + item.label + item.file.name;
-      const itemRef = ref(storage, "items/" + fileName);
-      const uploadTask = uploadBytesResumable(itemRef, item.file);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress = parseInt(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          setProgressPercentage(progress);
-        },
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            setMovie((prev) => {
-              return { ...prev, [item.label]: url };
-            });
-            setUploaded((prev) => prev + 1);
-          });
-        }
-      );
-    });
-  };
-  const handleUpload = (e) => {
-    setShowBox(true);
-    e.preventDefault();
-    upload([
-      { file: img, label: "img" },
-      { file: imgTitle, label: "imgTitle" },
-      { file: imgSm, label: "imgSm" },
-      { file: trailer, label: "trailer" },
-      { file: video, label: "video" },
-    ]);
-  };
   const handleChange = (e) => {
     const value = e.target.value;
     setMovie({ ...movie, [e.target.name]: value });
