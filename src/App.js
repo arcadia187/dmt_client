@@ -15,6 +15,7 @@ const loading = (
 const DefaultLayout = React.lazy(() => import("./layout/DefaultLayout"));
 
 // Pages
+const Cart = React.lazy(() => import("./views/pages/cart/cart"));
 const Product = React.lazy(() => import("./views/pages/product/product"));
 const Login = React.lazy(() => import("./views/pages/login/Login"));
 const Register = React.lazy(() => import("./views/pages/register/Register"));
@@ -23,6 +24,7 @@ const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 const HomePage = React.lazy(() => import("./views/pages/homepage/Homepage"));
 const Shop = React.lazy(() => import("./views/pages/shop/shop"));
 const Verify = React.lazy(() => import("./views/pages/verify/Verify"));
+const Checkout = React.lazy(() => import("./views/pages/checkout/checkout"));
 function App(props) {
   console.log(props?.uservalue);
   return (
@@ -45,6 +47,11 @@ function App(props) {
             element={<DefaultLayout children={<Shop />}></DefaultLayout>}
           />
           <Route
+            path="/checkout"
+            name="Checkout"
+            element={<DefaultLayout children={<Checkout />}></DefaultLayout>}
+          />
+          <Route
             path="/verify/:token"
             name="Verify Email"
             element={<Verify />}
@@ -64,6 +71,11 @@ function App(props) {
             path="/:id"
             name="Product"
             element={<DefaultLayout children={<Product />}></DefaultLayout>}
+          />
+          <Route
+            path="/cart"
+            name="Cart"
+            element={<DefaultLayout children={<Cart />}></DefaultLayout>}
           />
         </Routes>
       </Suspense>

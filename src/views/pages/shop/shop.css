@@ -1,5 +1,5 @@
 .shop {
-    height: 3000px;
+    padding: 0px 0px 420px 0px;
 }
 
 .shopHeroContainer {
@@ -15,7 +15,7 @@
     width: 300px;
     /* height: 500px; */
     min-height: 500px;
-    border-radius: 20px;
+    /* border-radius: 20px; */
     object-fit: cover;
 
 }
@@ -47,7 +47,7 @@
 }
 
 .strikeThrough {
-    text-decoration: line-through;
+    text-decoration: line-through !important;
 }
 
 .productItemContainer {
@@ -84,4 +84,19 @@
 .btnContainter {
     display: flex;
     justify-content: center;
+}
+
+.mainProductContainer {
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (min-width: 993px) {
+    .productContainer {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10%;
+    }
 }

@@ -13,13 +13,14 @@ body {
     --track-heading-color: #8bb63e;
     --para-sm: 14px;
     --para-lg: 22px;
-    --brown-color:rgb(206, 203, 203);
+    --brown-color: rgb(206, 203, 203);
     --btn-border: 1.25rem;
     --white-color: #fff;
-    --btn-padding: 5px 5px;
-    --btn-font: 16px;
+    --btn-padding: 10px 15px;
+    --btn-font: 18px;
     --btn-height: 50px;
-    --btn-width: 100px
+    --btn-width: 100px;
+    --heading-md: 20px
 }
 
 * {
@@ -60,10 +61,10 @@ body {
     border: 1px solid var(--yellow-color);
     background-color: transparent;
     font-size: var(--btn-font) !important;
-    border-radius: var(--btn-border);
+    /* border-radius: var(--btn-border); */
     padding: var(--btn-padding);
-    height: var(--btn-height);
-    width: var(--btn-width);
+    /* height: var(--btn-height);
+    width: var(--btn-width); */
 }
 
 .para {
@@ -84,6 +85,7 @@ body {
     box-shadow: 0 0 100px rgba(219, 166, 46, .8);
     background-color: var(--yellow-color);
     color: var(--darkBlue-color);
+    transition: 200ms;
 }
 
 .albumBtn {
@@ -91,22 +93,32 @@ body {
     border: none;
     background-color: var(--yellow-color);
     font-size: var(--btn-font) !important;
-    border-radius: var(--btn-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: var(--btn-padding) !important;
-    height: var(--btn-height);
-    width: var(--btn-width);
+    border: 1px solid var(--yellow-color) !important;
+    /* height: var(--btn-height);
+    width: var(--btn-width); */
 }
 
-.albumBtn:hover,.albumBtn:active,.albumBtn:focus-within {
+.albumBtn:hover,
+.albumBtn:active,
+.albumBtn:focus-within {
     border: transparent !important;
     color: black !important;
     box-shadow: 0 0 100px rgba(219, 166, 46, .8) !important;
     background: var(--yellow-color) !important;
 
 }
-.albumBtn:hover{
-   
-    font-weight: bold !important;
+
+.albumBtn:hover {
+    /* font-weight: bold !important; */
+    cursor: pointer;
+    color: var(--yellow-color) !important;
+    border: 1px solid var(--yellow-color) !important;
+    background-color: transparent !important;
+    transition: 200ms;
 }
 
 
@@ -132,6 +144,14 @@ a {
     margin-top: 5%;
 }
 
+a {
+    color: var(--white-color)
+}
+
+a:hover {
+    color: var(--yellow-color);
+}
+
 .marginLeft {
     margin-left: 5%;
 }
@@ -144,4 +164,28 @@ a {
     box-shadow: none !important;
     font-weight: normal !important;
 
+}
+
+.inputContainer {
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputItem {
+    /* width: 50%; */
+    margin-top: 10px;
+    height: 30px;
+}
+
+.inputItemContainer {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin-top: 20px;
+}
+
+.hide {
+    display: hide;
 }

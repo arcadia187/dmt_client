@@ -42,7 +42,9 @@ const Shop = () => {
           <br /> industry's standard dummy text ever since the 1500s
         </p>
       </div>
-      <div className="productContainer">{renderCards()}</div>
+      <div className="mainProductContainer">
+        <div className="productContainer">{renderCards()}</div>
+      </div>
       <div className="btnContainter">
         {page === 1 ? (
           ""

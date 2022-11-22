@@ -10,14 +10,12 @@ const PriceCalculator = ({ price, user, dispatch, currencyRate }) => {
     try {
       if (!currencyRate) {
         const { data } = await axios.get(`${server_url}currency/EUR`);
-        console.log(data);
         dispatch({ type: "currencyRate", payload: data.data.rate });
       }
     } catch (e) {
       console.log(e);
     }
   };
-
   useEffect(() => {
     getCurrencyRate();
   }, []);
@@ -25,7 +23,7 @@ const PriceCalculator = ({ price, user, dispatch, currencyRate }) => {
   if (!currencyRate) {
     return "loading";
   } else {
-    if (user?.data.ip.country_name === "India") {
+    if (user.data.ip.country_name === "India") {
       return `₹${price}`;
     } else {
       return `€${Math.ceil(price / currencyRate)}`;

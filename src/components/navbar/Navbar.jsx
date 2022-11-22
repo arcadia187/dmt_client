@@ -23,6 +23,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import logo from "../../assets/Asset 2.png";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router-dom";
 const NavbarItems = [
   {
     title: "home",
@@ -73,7 +74,7 @@ export default function Navbar() {
         />
         <CCollapse className="navbar-collapse" visible={visible}>
           <CNavbarNav id="navbar_ul">
-            {NavbarItems?.map((navLink) => (
+            {NavbarItems?.map((navLink, i) => (
               <>
                 <CNavItem>
                   <CNavLink
@@ -88,14 +89,16 @@ export default function Navbar() {
               </>
             ))}
           </CNavbarNav>
-          <CForm className="form d-flex">
+          {/* <CForm className="form d-flex">
             <CFormInput
               type="search"
               className="me-2 search_input"
               placeholder="Search"
             />
-          </CForm>
-          <ShoppingCartIcon style={{ margin: "0 2rem 0 auto" }} />
+          </CForm> */}
+          <Link to={"/cart"}>
+            <ShoppingCartIcon style={{ margin: "0 2rem 0 auto" }} />
+          </Link>
         </CCollapse>
       </CContainer>
     </CNavbar>

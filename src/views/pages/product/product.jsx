@@ -11,10 +11,15 @@ import PaypalLogo from "../../../assets/paymentLogos/paypal.jpg";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { server_url } from "src/constants/variables";
 import { connect } from "react-redux";
-const Product = ({ token }) => {
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+
+const Product = ({ token, dispatch, user }) => {
   const [product, setProduct] = useState(null);
   const [varient, setVerient] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [message, setMessage] = useState("");
+  const [cartSuccess, setCartSuccess] = useState(false);
 
   const getProduct = async () => {
     try {
@@ -29,6 +34,25 @@ const Product = ({ token }) => {
     }
   };
   const handleAddToCart = async () => {
+    let productPresent;
+
+    for (let i = 0; i < user.cart.length; i++) {
+      if (
+        user.cart[i].product === product._id &&
+        user.cart[i].varient.color === varient.color &&
+        user.cart[i].varient.size === varient.size
+      ) {
+        productPresent = true;
+        break;
+      } else {
+        productPresent = false;
+      }
+    }
+    if (productPresent === true) {
+      setMessage("This product already presents in the cart!");
+      setCartSuccess(false);
+      return;
+    }
     const productObj = {
       product: product._id,
       varient,
@@ -43,7 +67,11 @@ const Product = ({ token }) => {
         },
       }
     );
-    console.log(data);
+    const updatedUser = { data: data.updatedCart.data };
+    updatedUser.token = token;
+    dispatch({ type: "user", value: updatedUser });
+    setMessage("Product has been added to the cart!");
+    setCartSuccess(true);
   };
   useEffect(() => {
     getProduct();
@@ -51,6 +79,22 @@ const Product = ({ token }) => {
   if (!product) {
     return <div className="whiteColor">Loading</div>;
   }
+  const renderMessage = () => {
+    if (!message) {
+      return;
+    }
+    return (
+      <Alert
+        severity={!cartSuccess ? "error" : "success"}
+        className="marginTop"
+        onClose={() => {
+          setMessage("");
+        }}
+      >
+        {message}
+      </Alert>
+    );
+  };
 
   return (
     <div className="product whiteColor">
@@ -84,9 +128,12 @@ const Product = ({ token }) => {
             <div className="productVarient marginTop bodyCopy">
               <div className="bodycopy">Also available in</div>
               <div className="productAttributes">
-                {product.attribute.variant.map((el) => {
+                {product.attribute.variant.map((el, i) => {
                   return (
-                    <div className="marginTop bodycopy productAttributeItem">
+                    <div
+                      key={i}
+                      className="marginTop bodycopy productAttributeItem"
+                    >
                       <div className="productVarientItem">
                         <div>Size :</div>{" "}
                         <div className="size">{el.size.toUpperCase()}</div>
@@ -94,9 +141,10 @@ const Product = ({ token }) => {
                       <div className="productVarientItem">
                         <div>Colors :</div>
                         <div className="colorContainer">
-                          {el.color.split(" ").map((elm) => {
+                          {el.color.split(" ").map((elm, i) => {
                             return (
                               <div
+                                key={i}
                                 onClick={() => {
                                   setVerient({
                                     color: elm,
@@ -147,6 +195,7 @@ const Product = ({ token }) => {
               -
             </div>
           </div>
+          {renderMessage()}
           <button
             className={`${!varient ? "disabled" : null} albumBtn marginTop`}
             disabled={!varient ? true : false}
@@ -170,6 +219,7 @@ const Product = ({ token }) => {
 const mapStateToProps = (state) => {
   return {
     token: state.token,
+    user: state.uservalue,
   };
 };
 
