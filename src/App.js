@@ -24,6 +24,7 @@ const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 const HomePage = React.lazy(() => import("./views/pages/homepage/Homepage"));
 const Shop = React.lazy(() => import("./views/pages/shop/shop"));
 const Verify = React.lazy(() => import("./views/pages/verify/Verify"));
+const Checkout = React.lazy(() => import("./views/pages/checkout/checkout"));
 function App(props) {
   console.log(props?.uservalue);
   return (
@@ -44,6 +45,11 @@ function App(props) {
             path="/shop"
             name="Shop"
             element={<DefaultLayout children={<Shop />}></DefaultLayout>}
+          />
+          <Route
+            path="/checkout"
+            name="Checkout"
+            element={<DefaultLayout children={<Checkout />}></DefaultLayout>}
           />
           <Route
             path="/verify/:token"

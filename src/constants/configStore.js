@@ -12,7 +12,6 @@ const initial_state = {
 };
 
 function reducer(state = initial_state, action) {
-  console.log(action);
   switch (action.type) {
     case "user":
       return {
@@ -25,6 +24,11 @@ function reducer(state = initial_state, action) {
       return {
         ...state,
         currencyRate: action.payload,
+      };
+    case "cartTotal":
+      return {
+        ...state,
+        cartTotal: action.payload,
       };
 
     default:

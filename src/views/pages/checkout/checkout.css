@@ -1,0 +1,45 @@
+.checkoutHeader {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.checkout {
+    padding: 0px 0px 420px 0px;
+}
+
+.dropdown {
+    /* background-color: var(--aboveSurface); */
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid gray; */
+    /* box-shadow: var(--shadow) */
+    color: white
+}
+
+.dropdown:empty {
+    border: none;
+}
+
+.dropdown-row {
+    /* color: var(--secondaryColor); */
+    cursor: pointer;
+    text-align: start;
+    margin: 2px 0;
+    padding: 4px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+/* 
+.errorMessage {
+    width: 50%;
+} */
+.fallBack {
+    height: 100%;
+}

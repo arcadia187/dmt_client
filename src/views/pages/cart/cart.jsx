@@ -2,16 +2,20 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import PriceCalculator from "src/components/priceCalculator/priceCalculator";
 import "./cart.css";
 import CartItem from "./cartItem";
-const Cart = ({ token, user }) => {
+const Cart = ({ token, user, dispatch }) => {
   const [update, setUpdated] = useState(0);
   const [products, setProducts] = useState(null);
   const [sum, setSum] = useState(0);
 
   const retriveData = async () => {
     try {
+      if (!user.cart) {
+        return;
+      }
       const itemsPromises = await user.cart.map(async (el) => {
         const { data } = await axios.get(
           `${process.env.REACT_APP_SERVER_URL}product/${el.product}`
@@ -54,7 +58,7 @@ const Cart = ({ token, user }) => {
     products.forEach((el) => {
       sum += el.product.data.price;
     });
-    console.log({ sum });
+    dispatch({ type: "cartTotal", payload: sum });
     setSum(sum);
   };
   useEffect(() => {
@@ -63,6 +67,33 @@ const Cart = ({ token, user }) => {
   useEffect(() => {
     retriveData();
   }, [update]);
+  if (!token) {
+    return (
+      <div className="fallBack ">
+        <div className="heading whiteColor">
+          You need to{" "}
+          <Link to={"/login"} style={{ textDecoration: "underline" }}>
+            {" "}
+            Login
+          </Link>{" "}
+          first!
+        </div>
+      </div>
+    );
+  } else if (user.cart.length === 0) {
+    return (
+      <div className="fallBack ">
+        <div className="heading whiteColor">
+          You need to{" "}
+          <Link to={"/login"} style={{ textDecoration: "underline" }}>
+            {" "}
+            Add some products
+          </Link>{" "}
+          first!
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="cart">
       <div className="cartHeading ">
@@ -74,7 +105,9 @@ const Cart = ({ token, user }) => {
       <div className=" subhheading marginTop">
         <div className="whiteColor  cartItemsTotal">
           Total : <PriceCalculator price={sum} />
-          <button className="albumBtn">Checkout</button>
+          <Link to={"/checkout"} className="albumBtn">
+            Checkout
+          </Link>
         </div>
       </div>
     </div>

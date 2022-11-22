@@ -89,13 +89,13 @@ export default function Navbar() {
               </>
             ))}
           </CNavbarNav>
-          <CForm className="form d-flex">
+          {/* <CForm className="form d-flex">
             <CFormInput
               type="search"
               className="me-2 search_input"
               placeholder="Search"
             />
-          </CForm>
+          </CForm> */}
           <Link to={"/cart"}>
             <ShoppingCartIcon style={{ margin: "0 2rem 0 auto" }} />
           </Link>

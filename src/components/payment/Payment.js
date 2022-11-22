@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { RAZORPAY_KEY, SERVER_URL } from "../../../config";
-
+import { connect } from "react-redux";
 const loadScript = (url) => {
   return new Promise((resolve) => {
     const script = document.createElement("script");
@@ -16,16 +15,16 @@ const loadScript = (url) => {
   });
 };
 
-const Payment = ({ amount, currency = "INR" }) => {
+const Payment = ({ amount, userOrder, user, currency = "INR" }) => {
   const [order, setOrder] = useState(null);
 
   const generateOrder = async () => {
     const { data } = await axios.post(
-      `${SERVER_URL}/api/payment/make-payment`,
+      `${process.env.REACT_APP_SERVER_URL}payment/make-payment`,
       {
-        amount: amount,
+        amount: amount * 100,
         currency: currency,
-        notes: {},
+        notes: userOrder,
       }
     );
     setOrder(data.razorpayServerResponse);
@@ -48,7 +47,7 @@ const Payment = ({ amount, currency = "INR" }) => {
       return;
     }
     const options = {
-      key: RAZORPAY_KEY,
+      key: process.env.RAZORPAY_KEY,
       amount: order.amount,
       currency: order.currency,
       name: "DMT",
@@ -58,9 +57,8 @@ const Payment = ({ amount, currency = "INR" }) => {
       },
       order_id: order.id,
       prefill: {
-        name: "Gaurav Kumar",
-        email: "gaurav.kumar@example.com",
-        contact: "9999999999",
+        name: user.name,
+        email: user.email,
       },
       notes: order.notes,
       theme: {
@@ -72,9 +70,14 @@ const Payment = ({ amount, currency = "INR" }) => {
   };
 
   return (
-    <div className="App" onClick={generateOrder}>
-      Make Payment
+    <div className="albumBtn" onClick={generateOrder}>
+      Pay : {amount}
     </div>
   );
 };
-export default Payment;
+const mapStateToProps = (state) => {
+  return {
+    user: state.uservalue,
+  };
+};
+export default connect(mapStateToProps)(Payment);
