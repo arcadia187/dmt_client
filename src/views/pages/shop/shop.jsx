@@ -6,31 +6,35 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Shop = () => {
-  const [results, setResults] = useState(null);
+  const [products, setProducts] = useState(null);
+  const [nextPageUrl, setNextPageUrl] = useState("");
   const [page, setPage] = useState(1);
-  const [nextPage, setNextPage] = useState("");
   const getData = async (url) => {
     try {
       const { data } = await axios.get(url);
       console.log(data);
-      setNextPage(data.next);
-      setResults(data.data);
+      if (data) {
+        if (products == null) setProducts([...data.data]);
+        else setProducts((productArray) => [...productArray, ...data.data]);
+        setNextPageUrl(data.next);
+      }
     } catch (e) {
       console.log(e);
     }
   };
+
   const renderCards = () => {
-    if (!results) {
+    if (!products) {
       return <div className="whiteColor">No data to show</div>;
     }
-    console.log(results);
-    return results.map((el) => {
+    console.log(products);
+    return products.map((el) => {
       return <ProductCard product={el} key={el._id} />;
     });
   };
   useEffect(() => {
     getData(`${process.env.REACT_APP_SERVER_URL}product?isFirst=1&limit=6`);
-  }, [page]);
+  }, []);
 
   return (
     <div className="shop">
@@ -54,7 +58,7 @@ const Shop = () => {
           </button>
         )}
         <a>
-          <button className="secondryBtn">
+          <button onClick={() => getData(nextPageUrl)} className="secondryBtn">
             Next page <ArrowForwardIcon />
           </button>
         </a>

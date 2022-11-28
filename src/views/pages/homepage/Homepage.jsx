@@ -21,7 +21,7 @@ import Shop from "src/components/shop/Shop";
 import Player from "src/components/music/Player";
 import { connect } from "react-redux";
 import { useEffect } from "react";
-import Footer from "src/components/footer/Footer";
+
 import img from "../../../assets/Screenshot (48).png";
 function Homepage(props) {
   useEffect(() => {
@@ -69,7 +69,7 @@ function Homepage(props) {
       </CRow>
       <br />
       <CRow className="justify-content-center ">
-        <CCol className="welcome_box" lg={12}>
+        <CCol className="welcome_box" lg={8}>
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
             SHOP
           </h2>
@@ -93,56 +93,48 @@ function Homepage(props) {
           </h2>
           <div className="gallery">
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
             <div className="galleryImg">
-              <img src={img} alt="" />
+              <LazyLoadImage src={img} alt="" />
             </div>
           </div>
         </CCol>
       </CRow>
       <br />
-      <CRow className="justify-content-center  ">
-        <CCol className="welcome_box">
-          <h2 className="bold_heading" style={{ textAlign: "center" }}>
-            CONTACT
-          </h2>
-          <Footer />
-        </CCol>
-      </CRow>
     </CContainer>
   );
 }
