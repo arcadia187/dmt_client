@@ -4,8 +4,9 @@
 
 .productMainContainer {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     padding: 5%;
+    gap:4rem
 }
 
 .productMainImage {
@@ -13,6 +14,9 @@
     width: 90%;
     object-fit: fill;
     /* max-height: 0px; */
+}
+.carousel .carousel-status{
+    display: none!important;
 }
 
 .productMainLeft {
@@ -74,4 +78,41 @@
 
 .quantityContainer:hover {
     cursor: pointer;
+}
+.description{
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+
+.label{
+    font-weight: bold;
+    font-size: 20px;
+}
+.selectBox{
+    display: flex;
+    flex-direction: column;
+}
+.selectBox option{
+    background: black;
+    
+    color:wheat
+}
+.select{
+    width: 100px;
+    margin: 1.3rem;
+    background: transparent;
+    color: wheat;
+}
+.select:focus-visible{
+    outline: none;
+}
+
+.containerProduct{
+    gap: 5rem;
+    display: flex;
+    justify-content: center;
+    
 }

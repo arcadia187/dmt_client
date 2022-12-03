@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./app.css";
 import DashBoardHome from "./views/pages/admin/home/Home";
 import { connect } from "react-redux";
-
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse">Loading...</div>
@@ -62,11 +62,7 @@ function App(props) {
               props?.uservalue?.role == "ADMIN" ? <DashBoardHome /> : <Login />
             }
           />
-          <Route
-            path="*"
-            name="Home"
-            element={<DefaultLayout children={<HomePage />}></DefaultLayout>}
-          />
+
           <Route
             path="/:id"
             name="Product"
@@ -76,6 +72,12 @@ function App(props) {
             path="/cart"
             name="Cart"
             element={<DefaultLayout children={<Cart />}></DefaultLayout>}
+          />
+
+          <Route
+            path="*"
+            name="Home"
+            element={<DefaultLayout children={<HomePage />}></DefaultLayout>}
           />
         </Routes>
       </Suspense>

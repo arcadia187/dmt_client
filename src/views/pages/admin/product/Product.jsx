@@ -5,8 +5,9 @@ import "./productList.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useEffect } from "react";
-import { axiosInstance } from "../../../../constants/variables.js";
+import { axiosInstance, server_url } from "../../../../constants/variables.js";
 import { useState } from "react";
+import axios from "axios";
 export default function Product() {
   const [products, setProducts] = useState(null);
   const getProduct = async () => {
@@ -23,8 +24,18 @@ export default function Product() {
     getProduct();
   }, []);
 
-  const handleDelete = (id) => {
-    deleteMovie(id, dispatch);
+  const handleDelete = async (id) => {
+    console.log(id);
+    try {
+      const res = await axiosInstance.delete(server_url + "product/delete", {
+        id: id,
+      });
+
+      window.location.reload(false);
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const columns = [
