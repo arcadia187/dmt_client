@@ -10,7 +10,7 @@ const PriceCalculator = ({ price, user, dispatch, currencyRate }) => {
     try {
       if (!currencyRate) {
         const { data } = await axios.get(`${server_url}currency/EUR`);
-        dispatch({ type: "currencyRate", payload: data.data.rate });
+        dispatch({ type: "currencyRate", payload: data?.data?.rate });
       }
     } catch (e) {
       console.log(e);
