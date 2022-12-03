@@ -36,7 +36,7 @@ function Shop() {
   };
 
   useEffect(() => {
-    getData(`${process.env.REACT_APP_SERVER_URL}product?isFirst=1&limit=2`);
+    getData(`${process.env.REACT_APP_SERVER_URL}product?isFirst=1&limit=4`);
   }, []);
 
   return (
@@ -44,17 +44,6 @@ function Shop() {
       <div className="shop">
         <div className="shopHeroContainer"></div>
         <div className="productContainer">{renderProducts()}</div>
-        <div className="btnContainter">
-          <a>
-            <CButton
-              onClick={() => getData(nextPageUrl)}
-              style={{ marginTop: "1.2rem" }}
-              className="secondryBtn"
-            >
-              VIEW MORE
-            </CButton>
-          </a>
-        </div>
       </div>
     </>
   );
