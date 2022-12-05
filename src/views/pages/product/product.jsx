@@ -13,11 +13,10 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { server_url } from "src/constants/variables";
 import { connect } from "react-redux";
 import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
 
 const Product = ({ token, dispatch, user }) => {
   const [product, setProduct] = useState(null);
-  const [varient, setVerient] = useState(null);
+  // const [varient, setVerient] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("");
   const [cartSuccess, setCartSuccess] = useState(false);
@@ -28,7 +27,6 @@ const Product = ({ token, dispatch, user }) => {
     // write logic for updating in stock message
     setIsInStock(() => {
       const res = product?.variant.filter(checkIfIsInStock);
-      console.log(res);
       return res?.[0]?.stock > 0;
     });
   }, [selctedOptions, product]);
@@ -48,7 +46,6 @@ const Product = ({ token, dispatch, user }) => {
       const fetchedProduct = data.data.data;
       // aggregate each field seperately for variant array
       let variantInstance = Object.keys(fetchedProduct.variant[0]);
-      console.log(variantInstance);
       let obj = {};
 
       variantInstance.forEach((variant) => {
@@ -59,7 +56,6 @@ const Product = ({ token, dispatch, user }) => {
         });
 
         obj[variant] = [...new Set(obj[variant])];
-        console.log(obj);
 
         // obj=list of different variant with unique value..
       });
@@ -69,45 +65,49 @@ const Product = ({ token, dispatch, user }) => {
       console.log(e);
     }
   };
+  console.log({ selctedOptions });
   const handleAddToCart = async () => {
     let productPresent;
-
+    console.log({ cart: user.cart });
     for (let i = 0; i < user.cart.length; i++) {
       if (
         user.cart[i].product === product._id &&
-        user.cart[i].varient.color === varient.color &&
-        user.cart[i].varient.size === varient.size
+        user.cart[i].varient.color === selctedOptions.color &&
+        user.cart[i].varient.size === selctedOptions.size
       ) {
+        console.log({ productPresent });
+        console.log({ selctedOptions });
         productPresent = true;
         break;
       } else {
         productPresent = false;
       }
     }
-    if (productPresent === true) {
+    if (productPresent) {
       setMessage("This product already presents in the cart!");
       setCartSuccess(false);
       return;
+    } else {
+      const productObj = {
+        product: product._id,
+        varient: selctedOptions,
+        quantity,
+      };
+      const { data } = await axios.post(
+        `${server_url}user/add-product-to-cart`,
+        { product: productObj },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const updatedUser = { data: data.updatedCart.data };
+      updatedUser.token = token;
+      dispatch({ type: "user", value: updatedUser });
+      setMessage("Product has been added to the cart!");
+      setCartSuccess(true);
     }
-    const productObj = {
-      product: product._id,
-      varient,
-      quantity,
-    };
-    const { data } = await axios.post(
-      `${server_url}user/add-product-to-cart`,
-      { product: productObj },
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const updatedUser = { data: data.updatedCart.data };
-    updatedUser.token = token;
-    dispatch({ type: "user", value: updatedUser });
-    setMessage("Product has been added to the cart!");
-    setCartSuccess(true);
   };
   if (!product) {
     return <div className="whiteColor">Loading</div>;
@@ -158,7 +158,6 @@ const Product = ({ token, dispatch, user }) => {
             <select
               className="select"
               onChange={(e) => {
-                console.log(e.target.value);
                 setSelectedOption({
                   ...selctedOptions,
                   [variant]: e.target.value,
@@ -271,8 +270,7 @@ const Product = ({ token, dispatch, user }) => {
             </div>
             {renderMessage()}
             <button
-              className={`${!varient ? "disabled" : null} albumBtn marginTop`}
-              disabled={!varient ? true : false}
+              className={` albumBtn marginTop`}
               onClick={() => {
                 handleAddToCart();
               }}

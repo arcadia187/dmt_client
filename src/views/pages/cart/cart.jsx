@@ -37,14 +37,15 @@ const Cart = ({ token, user, dispatch }) => {
         <div className="whiteColor">Nothing to display! add some products</div>
       );
     }
+    console.log(products);
     return products.map((el, i) => {
       return (
         <CartItem
           key={i}
           setUpdated={setUpdated}
           updated={update}
-          color={el.varient.color ? el.varient.color : null}
-          size={el.varient.size ? el.varient.size : null}
+          color={el.varient?.color ? el.varient?.color : null}
+          size={el.varient?.size ? el.varient?.size : null}
           product={el.product.data}
         />
       );
