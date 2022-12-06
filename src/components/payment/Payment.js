@@ -70,9 +70,13 @@ const Payment = ({ amount, userOrder, user, currency = "INR" }) => {
   };
 
   return (
-    <div className="albumBtn" onClick={generateOrder}>
+    <button
+      disabled={true}
+      className="albumBtn disabled"
+      onClick={generateOrder}
+    >
       Pay : {amount}
-    </div>
+    </button>
   );
 };
 const mapStateToProps = (state) => {

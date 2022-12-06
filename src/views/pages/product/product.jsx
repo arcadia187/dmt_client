@@ -13,6 +13,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { server_url } from "src/constants/variables";
 import { connect } from "react-redux";
 import Alert from "@mui/material/Alert";
+import Payment from "src/components/payment/Payment";
 
 const Product = ({ token, dispatch, user }) => {
   const [product, setProduct] = useState(null);
@@ -23,6 +24,18 @@ const Product = ({ token, dispatch, user }) => {
   const [dynamicVariant, setDynamicVariant] = useState("");
   const [selctedOptions, setSelectedOption] = useState({});
   const [isInStock, setIsInStock] = useState(true);
+  const renderArtists = () => {
+    if (!product.productType === "release") {
+      return;
+    }
+    return (
+      <div className="artistContainer marginTop">
+        {product.artists.map((el) => {
+          return <div className="artistNames">{el}</div>;
+        })}
+      </div>
+    );
+  };
   useEffect(() => {
     // write logic for updating in stock message
     setIsInStock(() => {
@@ -45,6 +58,9 @@ const Product = ({ token, dispatch, user }) => {
       setProduct(data.data.data);
       const fetchedProduct = data.data.data;
       // aggregate each field seperately for variant array
+      if (!fetchedProduct.variant) {
+        return;
+      }
       let variantInstance = Object.keys(fetchedProduct.variant[0]);
       let obj = {};
 
@@ -65,18 +81,14 @@ const Product = ({ token, dispatch, user }) => {
       console.log(e);
     }
   };
-  console.log({ selctedOptions });
   const handleAddToCart = async () => {
     let productPresent;
-    console.log({ cart: user.cart });
     for (let i = 0; i < user.cart.length; i++) {
       if (
         user.cart[i].product === product._id &&
         user.cart[i].varient.color === selctedOptions.color &&
         user.cart[i].varient.size === selctedOptions.size
       ) {
-        console.log({ productPresent });
-        console.log({ selctedOptions });
         productPresent = true;
         break;
       } else {
@@ -148,6 +160,9 @@ const Product = ({ token, dispatch, user }) => {
     );
   };
   const renderSelectLogic = () => {
+    if (!product.variant) {
+      return;
+    }
     return (
       <div className="selectBox">
         {Object.keys(dynamicVariant).map((variant, index) => (
@@ -166,7 +181,7 @@ const Product = ({ token, dispatch, user }) => {
               name="option"
             >
               <option value="none" selected disabled hidden>
-                {variant}
+                {variant.toUpperCase()}
               </option>
               {dynamicVariant[variant].map((el) => (
                 <option value={el}>{el}</option>
@@ -177,6 +192,9 @@ const Product = ({ token, dispatch, user }) => {
       </div>
     );
   };
+  // const renderBuy = () => {
+  //   return ;
+  // };
   const renderDescription = () => {
     return product.productDetails.map((e, i) => (
       <div key={i} className="productDesc">
@@ -187,6 +205,7 @@ const Product = ({ token, dispatch, user }) => {
       </div>
     ));
   };
+  const handleBuy = () => {};
 
   return (
     <div className="product whiteColor">
@@ -194,19 +213,21 @@ const Product = ({ token, dispatch, user }) => {
         <div className="containerProduct">
           <div className="productMainLeft">
             <div className="productMainImageContainer">
-              <Carousel autoPlay={true} infiniteLoop={true}>
+              <Carousel autoPlay={false} infiniteLoop={true}>
                 <div>
                   <img className="productMainImage" src={product.coverImage} />
                 </div>
-                {product.images?.map((image, index) => (
-                  <div>
-                    <img
-                      className="productMainImage"
-                      src={product.coverImage}
-                      alt={"slide" + index + 1}
-                    />
-                  </div>
-                ))}
+                {product.images?.map((image, index) => {
+                  return (
+                    <div>
+                      <img
+                        className="productMainImage"
+                        src={image}
+                        alt={"slide" + index + 1}
+                      />
+                    </div>
+                  );
+                })}
               </Carousel>
             </div>
           </div>
@@ -236,51 +257,66 @@ const Product = ({ token, dispatch, user }) => {
               </div>
             ) : null}
             <br />
-            <div className="inStock">
-              <p
-                style={{
-                  color: isInStock ? "green" : "red",
-                  fontSize: "22px",
-                }}
-              >
-                {isInStock ? "In stock.." : "Sorry! out of stock.."}
-              </p>
-            </div>
-            <div className="quantityContainer marginTop subhheading">
-              <div
-                onClick={() => {
-                  const temp = quantity + 1;
-                  setQuantity(temp);
-                }}
-              >
-                +
+            {product.productType === "release" ? null : (
+              <div className="inStock">
+                <p
+                  style={{
+                    color: isInStock ? "green" : "red",
+                    fontSize: "22px",
+                  }}
+                >
+                  {isInStock ? "In stock.." : "Sorry! out of stock.."}
+                </p>
               </div>
-              <div>{quantity}</div>
-              <div
-                onClick={() => {
-                  if (quantity <= 1) {
-                    return;
-                  }
-                  const temp = quantity - 1;
-                  setQuantity(temp);
-                }}
-              >
-                -
+            )}
+            {product.productType === "release" ? null : (
+              <div className="quantityContainer marginTop subhheading">
+                <div
+                  onClick={() => {
+                    const temp = quantity + 1;
+                    setQuantity(temp);
+                  }}
+                >
+                  +
+                </div>
+                <div>{quantity}</div>
+                <div
+                  onClick={() => {
+                    if (quantity <= 1) {
+                      return;
+                    }
+                    const temp = quantity - 1;
+                    setQuantity(temp);
+                  }}
+                >
+                  -
+                </div>
               </div>
-            </div>
+            )}
             {renderMessage()}
-            <button
-              className={` albumBtn marginTop`}
-              onClick={() => {
-                handleAddToCart();
-              }}
-            >
-              Add to cart <ShoppingCartIcon fontSize="small" />
-            </button>
+            {!product.compiledBy ? null : (
+              <div className="compiledBy">
+                <div className="">Compiled by : </div>
+                <div className="subhheading">{product.compiledBy} </div>
+              </div>
+            )}
+            {renderArtists()}
+            {product.productType === "release" ? (
+              <Payment amount={product.price} />
+            ) : (
+              <button
+                className={` albumBtn marginTop`}
+                onClick={() => {
+                  handleAddToCart();
+                }}
+              >
+                Add to cart <ShoppingCartIcon fontSize="small" />
+              </button>
+            )}
             <div className="marginTop bodycopy">Pay securly using </div>
             <div className="bodycopy paymentImagesContainer marginTop">
-              <img className="paymentImage" src={PaypalLogo} />
-              <img className="paymentImage marginLeft" src={RazorpayLogo} />
+              {/* <img className="paymentImage" src={PaypalLogo} /> */}
+              <img className="paymentImage " src={RazorpayLogo} />
             </div>
           </div>
         </div>

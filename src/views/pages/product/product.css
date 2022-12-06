@@ -1,12 +1,13 @@
 .product {
-    height: 3000px;
+    /* height: 3000px; */
+    padding: 0px 0px 100px 0px;
 }
 
 .productMainContainer {
     display: flex;
     flex-direction: column;
     padding: 5%;
-    gap:4rem
+    gap: 4rem
 }
 
 .productMainImage {
@@ -15,8 +16,9 @@
     object-fit: fill;
     /* max-height: 0px; */
 }
-.carousel .carousel-status{
-    display: none!important;
+
+.carousel .carousel-status {
+    display: none !important;
 }
 
 .productMainLeft {
@@ -51,8 +53,27 @@
     border-radius: 10px;
 }
 
-.paymentImagesContainer {
+
+.artistContainer {
     display: flex;
+    justify-content: space-between;
+    width: 70%;
+    flex-wrap: wrap;
+
+}
+
+.artistNames {
+    color: var(--white-color);
+    border: 1px solid var(--white-color);
+    background-color: transparent;
+    font-size: var(--btn-font) !important;
+    border-radius: var(--btn-border);
+    padding: var(--btn-padding);
+    text-align: center;
+    margin-top: 10px;
+    flex-basis: 30%;
+    /* height: var(--btn-height);
+    width: var(--btn-width); */
 }
 
 .colorContainer {
@@ -79,7 +100,8 @@
 .quantityContainer:hover {
     cursor: pointer;
 }
-.description{
+
+.description {
 
     display: flex;
     flex-direction: column;
@@ -87,32 +109,51 @@
 }
 
 
-.label{
+.label {
     font-weight: bold;
     font-size: 20px;
 }
-.selectBox{
+
+.selectBox {
     display: flex;
     flex-direction: column;
+
 }
-.selectBox option{
+
+.selectBox option {
     background: black;
-    
-    color:wheat
+    color: wheat
 }
-.select{
+
+.select {
     width: 100px;
     margin: 1.3rem;
     background: transparent;
     color: wheat;
+    height: 50px;
 }
-.select:focus-visible{
+
+.select:focus-visible {
     outline: none;
 }
 
-.containerProduct{
+.containerProduct {
     gap: 5rem;
     display: flex;
     justify-content: center;
-    
+
+}
+
+@media screen and (min-width: 500px) {
+    .containerProduct {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .containerProduct {
+        display: flex;
+        flex-direction: row;
+    }
 }

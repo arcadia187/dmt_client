@@ -5,7 +5,7 @@ import ProductCard from "./shopCard";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const Shop = () => {
+const Shop = ({ title, url, pagination, content }) => {
   const [products, setProducts] = useState(null);
   const [nextPageUrl, setNextPageUrl] = useState("");
   const [page, setPage] = useState(1);
@@ -18,6 +18,7 @@ const Shop = () => {
         else setProducts((productArray) => [...productArray, ...data.data]);
         setNextPageUrl(data.next);
       }
+      console.log(data);
     } catch (e) {
       console.log(e);
     }
@@ -33,13 +34,13 @@ const Shop = () => {
     });
   };
   useEffect(() => {
-    getData(`${process.env.REACT_APP_SERVER_URL}product?isFirst=1&limit=6`);
+    getData(url);
   }, []);
 
   return (
     <div className="shop">
       <div className="shopHeroContainer">
-        <h1 className="heading">SHOP</h1>
+        <h1 className="heading">{title}</h1>
         <p className="bodyCopy whiteColor" style={{ textAlign: "center" }}>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the
@@ -49,20 +50,25 @@ const Shop = () => {
       <div className="mainProductContainer">
         <div className="productContainer">{renderCards()}</div>
       </div>
-      <div className="btnContainter">
-        {page === 1 ? (
-          ""
-        ) : (
-          <button className="secondryBtn">
-            Previous Page <ArrowBackIcon />
-          </button>
-        )}
-        <a>
-          <button onClick={() => getData(nextPageUrl)} className="secondryBtn">
-            Next page <ArrowForwardIcon />
-          </button>
-        </a>
-      </div>
+      {!pagination ? null : (
+        <div className="btnContainter">
+          {page === 1 ? (
+            ""
+          ) : (
+            <button className="secondryBtn">
+              Previous Page <ArrowBackIcon />
+            </button>
+          )}
+          <a>
+            <button
+              onClick={() => getData(nextPageUrl)}
+              className="secondryBtn"
+            >
+              Next page <ArrowForwardIcon />
+            </button>
+          </a>
+        </div>
+      )}
     </div>
   );
 };

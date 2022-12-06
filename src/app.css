@@ -14,9 +14,9 @@ body {
     --para-sm: 14px;
     --para-lg: 22px;
     --brown-color: rgb(206, 203, 203);
-    --btn-border: 1.25rem;
+    --btn-border: .25rem;
     --white-color: #fff;
-    --btn-padding: 10px 15px;
+    --btn-padding: 10px 5px;
     --btn-font: 18px;
     --btn-height: 50px;
     --btn-width: 100px;
@@ -42,6 +42,12 @@ body {
 .mediumHeading {
     font-size: var(--para-sm);
     font-weight: 500;
+}
+
+.compiledBy {
+    display: flex;
+    width: 50%;
+    align-items: center;
 }
 
 .subhheading {

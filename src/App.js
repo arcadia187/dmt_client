@@ -15,6 +15,7 @@ const loading = (
 const DefaultLayout = React.lazy(() => import("./layout/DefaultLayout"));
 
 // Pages
+const ReleaseShop = React.lazy(() => import("./views/pages/release/release"));
 const Cart = React.lazy(() => import("./views/pages/cart/cart"));
 const Product = React.lazy(() => import("./views/pages/product/product"));
 const Login = React.lazy(() => import("./views/pages/login/Login"));
@@ -44,7 +45,17 @@ function App(props) {
           <Route
             path="/shop"
             name="Shop"
-            element={<DefaultLayout children={<Shop />}></DefaultLayout>}
+            element={
+              <DefaultLayout
+                children={
+                  <Shop
+                    title={"Merchandise"}
+                    url={`${process.env.REACT_APP_SERVER_URL}product?isFirst=1&limit=6`}
+                    pagination={true}
+                  />
+                }
+              ></DefaultLayout>
+            }
           />
           <Route
             path="/checkout"
@@ -67,6 +78,11 @@ function App(props) {
             path="/:id"
             name="Product"
             element={<DefaultLayout children={<Product />}></DefaultLayout>}
+          />
+          <Route
+            path="/new_releases"
+            name="Release Shop"
+            element={<DefaultLayout children={<ReleaseShop />}></DefaultLayout>}
           />
           <Route
             path="/cart"
