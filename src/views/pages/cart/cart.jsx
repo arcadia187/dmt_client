@@ -4,6 +4,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PriceCalculator from "src/components/priceCalculator/priceCalculator";
+import createAxios from "../../../constants/variables";
 import "./cart.css";
 import CartItem from "./cartItem";
 const Cart = ({ token, user, dispatch }) => {
@@ -17,7 +18,8 @@ const Cart = ({ token, user, dispatch }) => {
         return;
       }
       const itemsPromises = await user.cart.map(async (el) => {
-        const { data } = await axios.get(
+        const axiosInstance = await createAxios();
+        const { data } = await axiosInstance.get(
           `${process.env.REACT_APP_SERVER_URL}product/${el.product}`
         );
         return {

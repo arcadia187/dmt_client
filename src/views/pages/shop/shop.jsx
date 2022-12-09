@@ -4,6 +4,7 @@ import "./shop.css";
 import ProductCard from "./shopCard";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import createAxios from "../../../constants/variables";
 
 const Shop = ({ title, url, pagination, content }) => {
   const [products, setProducts] = useState(null);
@@ -11,7 +12,8 @@ const Shop = ({ title, url, pagination, content }) => {
   const [page, setPage] = useState(1);
   const getData = async (url) => {
     try {
-      const { data } = await axios.get(url);
+      const axiosInstance = await createAxios();
+      const { data } = await axiosInstance.get(url);
       console.log(data);
       if (data) {
         if (products == null) setProducts([...data.data]);

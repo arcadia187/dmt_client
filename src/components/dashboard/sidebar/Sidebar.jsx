@@ -52,10 +52,10 @@ export default function Sidebar() {
                 Products
               </li>
             </NavLink>
-            <NavLink to="/admin/product/lists" className="dashBSideBarLink">
+            <NavLink to="/admin/orders" className="dashBSideBarLink">
               <li className="dashBsideBarMenuListItems">
                 <FormatListBulletedIcon className="dashBsideBarMenuListItemsIcon" />
-                Lists
+                Orders
               </li>
             </NavLink>
             <li className="dashBsideBarMenuListItems">

@@ -3,7 +3,7 @@ import PriceCalculator from "src/components/priceCalculator/priceCalculator";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { connect } from "react-redux";
 import axios from "axios";
-import { server_url } from "src/constants/variables";
+import createAxios, { server_url } from "../../../constants/variables";
 import { useState } from "react";
 
 const CartItem = ({
@@ -24,14 +24,10 @@ const CartItem = ({
           size,
         },
       };
-      const { data } = await axios.post(
+      const axiosInstance = await createAxios();
+      const { data } = await axiosInstance.post(
         `${process.env.REACT_APP_SERVER_URL}user/remove-product-from-cart`,
-        itemToRemove,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
+        itemToRemove
       );
       const updatedUser = { data: data.updatedCart.data };
       updatedUser.token = token;

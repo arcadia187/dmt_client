@@ -2,40 +2,42 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import "./checkout.css";
 import Select from "react-select";
-import axios from "axios";
 import { countries } from "src/constants/staticData";
 import Alert from "@mui/material/Alert";
 import PriceCalculator from "src/components/priceCalculator/priceCalculator";
 import Payment from "../../../components/payment/Payment";
 import { Link } from "react-router-dom";
+import createAxios from "../../../constants/variables";
 
 const Checkout = ({ user, token, dispatch, cartTotal }) => {
   //Definging state for both the new user and the user who already has a delivery address
   const [country, setCountry] = useState(
-    user.deliveryAddress.country ? user.deliveryAddress.country : null
+    user?.deliveryAddress?.country ? user?.deliveryAddress?.country : null
   );
   const [state, setState] = useState(
-    user.deliveryAddress.state ? user.deliveryAddress.state : null
+    user?.deliveryAddress?.state ? user?.deliveryAddress?.state : null
   );
   const [fullName, setfullName] = useState(
-    user.deliveryAddress.fullName ? user.deliveryAddress.fullName : null
+    user?.deliveryAddress?.fullName ? user?.deliveryAddress?.fullName : null
   );
   const [mobileNumber, setmobileNumber] = useState(
-    user.deliveryAddress.mobileNumber ? user.deliveryAddress.mobileNumber : null
+    user?.deliveryAddress?.mobileNumber
+      ? user?.deliveryAddress?.mobileNumber
+      : null
   );
   const [flatNumber, setflatNumber] = useState(
-    user.deliveryAddress.flatNumber ? user.deliveryAddress.flatNumber : null
+    user?.deliveryAddress?.flatNumber ? user?.deliveryAddress?.flatNumber : null
   );
   const [buildingNumber, setbuildingNumber] = useState(
-    user.deliveryAddress.buildingNumber
-      ? user.deliveryAddress.buildingNumber
+    user?.deliveryAddress?.buildingNumber
+      ? user?.deliveryAddress?.buildingNumber
       : null
   );
   const [landMark, setlandMark] = useState(
-    user.deliveryAddress.landmark ? user.deliveryAddress.landmark : null
+    user?.deliveryAddress?.landmark ? user?.deliveryAddress?.landmark : null
   );
   const [pinCode, setpinCode] = useState(
-    user.deliveryAddress.pincode ? user.deliveryAddress.pincode : null
+    user?.deliveryAddress?.pincode ? user?.deliveryAddress?.pincode : null
   );
   const [message, setMessage] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -68,8 +70,10 @@ const Checkout = ({ user, token, dispatch, cartTotal }) => {
       landmark: landMark,
       pincode: pinCode,
     };
+
     try {
-      const updateduser = await axios.post(
+      const axiosInstance = await createAxios();
+      const updateduser = await axiosInstance.post(
         `${process.env.REACT_APP_SERVER_URL}user/update-delivery-address`,
         addressObj,
         {
@@ -229,7 +233,7 @@ const Checkout = ({ user, token, dispatch, cartTotal }) => {
               // address: user.deliveryAddress,
               products: JSON.stringify(user.cart),
             }}
-            currency={user.ip.country_name === "India" ? "INR" : "EUR"}
+            currency={user?.ip?.country_name === "India" ? "INR" : "EUR"}
           />
         </div>
       </div>
