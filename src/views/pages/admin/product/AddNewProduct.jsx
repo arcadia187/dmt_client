@@ -45,6 +45,11 @@ export default function AddNewProduct() {
   ]);
 
   const navigate = useNavigate();
+
+  const fetchAxios = async () => {
+    const axiosInstanceCopy = await createAxios();
+    setAxiosInstance(axiosInstanceCopy);
+  };
   function LinearProgressWithLabel(props) {
     return (
       <Box sx={{ display: "flex", alignItems: "center" }}>

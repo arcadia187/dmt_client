@@ -10,10 +10,10 @@ import { width } from "@mui/system";
 import RazorpayLogo from "../../../assets/paymentLogos/razorpay.jpg";
 import PaypalLogo from "../../../assets/paymentLogos/paypal.jpg";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { server_url } from "src/constants/variables";
+import createAxios, { server_url } from "src/constants/variables";
 import { connect } from "react-redux";
 import Alert from "@mui/material/Alert";
-import Payment from "src/components/payment/Payment";
+import Payment from "../../../components/payment/Payment";
 
 const Product = ({ token, dispatch, user }) => {
   const [product, setProduct] = useState(null);
@@ -50,7 +50,8 @@ const Product = ({ token, dispatch, user }) => {
 
   const getProduct = async () => {
     try {
-      const { data } = await axios.get(
+      const axiosInstance = await createAxios();
+      const { data } = await axiosInstance.get(
         `${
           process.env.REACT_APP_SERVER_URL
         }product/${window.location.pathname.slice(1)}`
@@ -85,9 +86,9 @@ const Product = ({ token, dispatch, user }) => {
     let productPresent;
     for (let i = 0; i < user.cart.length; i++) {
       if (
-        user.cart[i].product === product._id &&
-        user.cart[i].varient.color === selctedOptions.color &&
-        user.cart[i].varient.size === selctedOptions.size
+        user.cart[i]?.product === product?._id &&
+        user.cart[i]?.varient?.color === selctedOptions?.color &&
+        user.cart[i]?.varient?.size === selctedOptions?.size
       ) {
         productPresent = true;
         break;
@@ -105,7 +106,8 @@ const Product = ({ token, dispatch, user }) => {
         varient: selctedOptions,
         quantity,
       };
-      const { data } = await axios.post(
+      const axiosInstance = await createAxios();
+      const { data } = await axiosInstance.post(
         `${server_url}user/add-product-to-cart`,
         { product: productObj },
         {

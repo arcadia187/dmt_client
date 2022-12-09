@@ -1,35 +1,36 @@
 import { CButton } from "@coreui/react";
 import React from "react";
 import { Link } from "react-router-dom";
-import "./productList.scss";
+import "./userList.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useEffect } from "react";
 import createAxios, { server_url } from "../../../../constants/variables.js";
 import { useState } from "react";
-import axios from "axios";
-export default function Product() {
-  const [products, setProducts] = useState(null);
-  const getProduct = async () => {
+
+export default function User() {
+  const [users, setUsers] = useState(null);
+
+  const getUsers = async () => {
     try {
       const axiosInstance = await createAxios();
-      const { data } = await axiosInstance.get("product?isFirst=1&limit=10");
-      console.log(data.data);
-      setProducts(data.data);
+      const { data } = await axiosInstance?.get("auth/all");
+      console.log(data.users.data);
+      setUsers(data.users.data);
     } catch (e) {
       console.log(e);
     }
   };
 
   useEffect(() => {
-    getProduct();
+    getUsers();
   }, []);
 
   const handleDelete = async (id) => {
     console.log(id);
     try {
       const axiosInstance = await createAxios();
-      const res = await axiosInstance.delete(server_url + "product/delete", {
+      const res = await axiosInstance?.delete(server_url + "user/delete", {
         id: id,
       });
 
@@ -43,27 +44,30 @@ export default function Product() {
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     {
-      field: "title",
-      headerName: "Title",
+      field: "name",
+      headerName: "Name",
       width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="productListItem">
-            <img
-              className="productListImg"
-              src={params.row.coverImage}
-              alt=""
-            />
-            {params.row.title}
-          </div>
-        );
-      },
+      //   renderCell: (params) => {
+      //     return (
+      //       <div className="productListItem">
+      //         <img
+      //           className="productListImg"
+      //           src={params.row.coverImage}
+      //           alt=""
+      //         />
+      //         {params.row.title}
+      //       </div>
+      //     );
+      //   },
     },
-    { field: "price", headerName: "Price", width: 120 },
-    { field: "productType", headerName: "Product Type", width: 120 },
-    // { field: "limit", headerName: "limit", width: 120 },
-    // { field: "isSeries", headerName: "isSeries", width: 120 },
+    { field: "isVerified", headerName: "Status", width: 120 },
+    { field: "email", headerName: "Email", width: 220 },
 
+    {
+      field: "role",
+      headerName: "Role",
+      width: 150,
+    },
     {
       field: "action",
       headerName: "Action",
@@ -91,9 +95,9 @@ export default function Product() {
   return (
     <div style={{ height: "100vh" }}>
       <div className="productList">
-        {products && (
+        {users && (
           <DataGrid
-            rows={products}
+            rows={users}
             disableSelectionOnClick
             columns={columns}
             pageSize={8}
@@ -102,9 +106,6 @@ export default function Product() {
           />
         )}
       </div>
-      <Link to="/admin/add_product">
-        <CButton className="albumBtn">Add New Product</CButton>
-      </Link>
     </div>
   );
 }

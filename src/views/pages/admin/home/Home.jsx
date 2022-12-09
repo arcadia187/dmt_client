@@ -14,6 +14,8 @@ const DefaultLayoutAdmin = React.lazy(() =>
 
 // Pages
 const Login = React.lazy(() => import("../../login/Login"));
+const Order = React.lazy(() => import("../order/Order"));
+const User = React.lazy(() => import("../user/User"));
 const Register = React.lazy(() => import("../../register/Register.js"));
 const Page404 = React.lazy(() => import("../../page404/Page404"));
 const Product = React.lazy(() => import("../product/Product"));
@@ -43,6 +45,22 @@ export default function App() {
             <DefaultLayoutAdmin
               children={<AddNewProduct />}
             ></DefaultLayoutAdmin>
+          }
+        />
+        <Route
+          exact
+          path="/users"
+          name="Add New Product"
+          element={
+            <DefaultLayoutAdmin children={<User />}></DefaultLayoutAdmin>
+          }
+        />
+        <Route
+          exact
+          path="/orders"
+          name="Add New Product"
+          element={
+            <DefaultLayoutAdmin children={<Order />}></DefaultLayoutAdmin>
           }
         />
         <Route exact path="/404" name="Page 404" element={<Page404 />} />
