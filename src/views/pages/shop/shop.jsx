@@ -10,10 +10,14 @@ const Shop = ({ title, url, pagination, content }) => {
   const [products, setProducts] = useState(null);
   const [nextPageUrl, setNextPageUrl] = useState("");
   const [page, setPage] = useState(1);
+  // console.log({ url });
   const getData = async (url) => {
     try {
       const axiosInstance = await createAxios();
+      // console.log(axiosInstance);
+      // console.log(await axiosInstance.get(url)) + "working";
       const { data } = await axiosInstance.get(url);
+      // const { data } = await axios.get(url);
       console.log(data);
       if (data) {
         if (products == null) setProducts([...data.data]);

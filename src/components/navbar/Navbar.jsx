@@ -24,6 +24,7 @@ import { useLocation } from "react-router-dom";
 import logo from "../../assets/Asset 2.png";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 const NavbarItems = [
   {
     title: "home",
@@ -56,9 +57,10 @@ const NavbarItems = [
     id: 6,
   },
 ];
-export default function Navbar() {
+function Navbar({ user }) {
   const [visible, setVisible] = useState(false);
   const location = useLocation();
+  console.log();
   return (
     <CNavbar style={{ padding: "1rem 0" }} expand="lg" className="bg-nav">
       <CContainer className="container" fluid>
@@ -96,11 +98,23 @@ export default function Navbar() {
               placeholder="Search"
             />
           </CForm> */}
-          <Link to={"/cart"}>
-            <ShoppingCartIcon style={{ margin: "0 2rem 0 auto" }} />
-          </Link>
+          {Object.keys(user).length === 0 ? (
+            <Link to={"/login"} className="secondryBtn">
+              Login
+            </Link>
+          ) : (
+            <Link to={"/cart"}>
+              <ShoppingCartIcon style={{ margin: "0 2rem 0 auto" }} />
+            </Link>
+          )}
         </CCollapse>
       </CContainer>
     </CNavbar>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    user: state.uservalue,
+  };
+};
+export default connect(mapStateToProps)(Navbar);

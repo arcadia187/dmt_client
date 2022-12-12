@@ -19,9 +19,8 @@ const PriceCalculator = ({ price, user, dispatch, currencyRate }) => {
   useEffect(() => {
     getCurrencyRate();
   }, []);
-  // console.log(user.ip.country_name);
   if (!currencyRate) {
-    return "loading";
+    return `₹${price}`;
   } else {
     if (user.ip.country_name === "India") {
       return `₹${price}`;
