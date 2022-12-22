@@ -103,6 +103,15 @@
 }
 
 // card css end
+@media screen and (max-width: 728px) {
+  .productContainer {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10%;
+  }
+}
 @media screen and (min-width: 600px) {
   .shopBox {
     width: 100%;
