@@ -1,9 +1,9 @@
 {
-  "short_name": "CoreUI-React",
-  "name": "CoreUI-React sample",
+  "short_name": "DMT-React",
+  "name": "DMT",
   "icons": [
     {
-      "src": "./assets/img/favicon.png",
+      "src": "../src/assets/Asset 5.png",
       "sizes": "100x100",
       "type": "image/png"
     }

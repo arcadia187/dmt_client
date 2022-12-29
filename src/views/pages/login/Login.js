@@ -18,7 +18,9 @@ import { cilLockLocked, cilUser } from "@coreui/icons";
 import { server_url } from "src/constants/variables";
 import axios from "axios";
 import { connect } from "react-redux";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "./login.scss";
+import logo from "../../../assets/Asset 2.png";
 const Login = (props) => {
   let navigate = useNavigate();
   // Once submitted then show validation
@@ -99,7 +101,7 @@ const Login = (props) => {
     }
   };
   return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div className="bg min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={8}>
@@ -108,7 +110,10 @@ const Login = (props) => {
               style={{ color: "red", fontSize: "18px", fontWeight: "500" }}
             ></p>
             <CCardGroup>
-              <CCard className="p-4">
+              <CCard
+                style={{ background: "transparent", color: "white" }}
+                className="p-4"
+              >
                 <CCardBody>
                   <CForm onSubmit={handleSubmit}>
                     <h1>Login</h1>
@@ -145,7 +150,7 @@ const Login = (props) => {
                       />
                     </CInputGroup>
                     <div className="d-grid">
-                      <CButton type="submit" color="success">
+                      <CButton type="submit" className="secondryBtn">
                         Login
                       </CButton>
                     </div>
@@ -153,26 +158,30 @@ const Login = (props) => {
                 </CCardBody>
               </CCard>
               <CCard
-                className="text-white bg-primary py-5"
-                style={{ width: "44%" }}
+                style={{ background: "transparent", color: "white" }}
+                className="text-white py-5"
               >
-                <CCardBody className="text-center">
-                  <div>
+                <CCardBody>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      gap: "1rem",
+                    }}
+                  >
                     <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
+                    <LazyLoadImage src={logo} width="200px" alt="logo" />
                     <Link to="/register">
-                      <CButton
+                      <button
                         color="primary"
-                        className="mt-3"
+                        className="secondryBtn"
                         active
                         tabIndex={-1}
                       >
                         Register Now!
-                      </CButton>
+                      </button>
                     </Link>
                   </div>
                 </CCardBody>

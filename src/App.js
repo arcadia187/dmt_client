@@ -4,10 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./app.css";
 import DashBoardHome from "./views/pages/admin/home/Home";
 import { connect } from "react-redux";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 const loading = (
   <div className="pt-3 text-center">
-    <div className="sk-spinner sk-spinner-pulse">Loading...</div>
+    <div className=" text-center  sk-spinner sk-spinner-pulse">Loading...</div>
   </div>
 );
 
