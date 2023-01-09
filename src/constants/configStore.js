@@ -30,7 +30,16 @@ function reducer(state = initial_state, action) {
         ...state,
         cartTotal: action.payload,
       };
-
+    case "albums":
+      return {
+        ...state,
+        albums: action.payload,
+      };
+    case "products":
+      return {
+        ...state,
+        products: action.payload,
+      };
     default:
       return state;
   }

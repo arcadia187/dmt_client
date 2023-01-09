@@ -1,0 +1,13 @@
+.mainProductContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.productContainerHomePage {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    /* padding: 10%; */
+}

@@ -58,7 +58,7 @@ body {
 .bodycopy {
     font-size: var(--bodyCopy);
     line-height: 20px;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     border-radius: var(--btn-border);
 }
 
@@ -67,7 +67,7 @@ body {
     border: 1px solid var(--yellow-color);
     background-color: transparent;
     font-size: var(--btn-font) !important;
-    /* border-radius: var(--btn-border); */
+    border-radius: var(--btn-border);
     padding: var(--btn-padding);
     /* height: var(--btn-height);
     width: var(--btn-width); */
@@ -96,7 +96,7 @@ body {
 
 .albumBtn {
     color: var(--darkBlue-color);
-    border: none;
+    border-radius: var(--btn-border);
     background-color: var(--yellow-color);
     font-size: var(--btn-font) !important;
     display: flex;

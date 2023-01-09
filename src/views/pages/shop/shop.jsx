@@ -5,8 +5,10 @@ import ProductCard from "./shopCard";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import createAxios from "../../../constants/variables";
+import { connect } from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
 
-const Shop = ({ title, url, pagination, content }) => {
+const Shop = ({ title, url, pagination, content, albums, merch }) => {
   const [products, setProducts] = useState(null);
   const [nextPageUrl, setNextPageUrl] = useState("");
   const [page, setPage] = useState(1);
@@ -14,17 +16,13 @@ const Shop = ({ title, url, pagination, content }) => {
   const getData = async (url) => {
     try {
       const axiosInstance = await createAxios();
-      // console.log(axiosInstance);
-      // console.log(await axiosInstance.get(url)) + "working";
       const { data } = await axiosInstance.get(url);
-      // const { data } = await axios.get(url);
       console.log(data);
       if (data) {
         if (products == null) setProducts([...data.data]);
         else setProducts((productArray) => [...productArray, ...data.data]);
         setNextPageUrl(data.next);
       }
-      console.log(data);
     } catch (e) {
       console.log(e);
     }
@@ -32,9 +30,9 @@ const Shop = ({ title, url, pagination, content }) => {
 
   const renderCards = () => {
     if (!products) {
-      return <div className="whiteColor">No data to show</div>;
+      return <CircularProgress />;
     }
-    console.log(products);
+
     return products.map((el) => {
       return <ProductCard product={el} key={el._id} />;
     });
@@ -78,4 +76,10 @@ const Shop = ({ title, url, pagination, content }) => {
     </div>
   );
 };
-export default Shop;
+const mapStateToProps = (state) => {
+  return {
+    albums: state.albums,
+    merch: state.products,
+  };
+};
+export default connect(mapStateToProps)(Shop);

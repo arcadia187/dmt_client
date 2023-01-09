@@ -60,12 +60,13 @@ const NavbarItems = [
 function Navbar({ user }) {
   const [visible, setVisible] = useState(false);
   const location = useLocation();
-  console.log();
   return (
     <CNavbar style={{ padding: "1rem 0" }} expand="lg" className="bg-nav">
       <CContainer className="container" fluid>
-        <CNavbarBrand className="navbar_brand" href="#">
-          <img src={logo} className="imgLogo" alt="logo" />
+        <CNavbarBrand className="navbar_brand">
+          <Link to={"/"}>
+            <img src={logo} className="imgLogo" alt="logo" />
+          </Link>
         </CNavbarBrand>
         <CNavbarToggler
           className="navbar_toggle"
@@ -81,11 +82,11 @@ function Navbar({ user }) {
                 <CNavItem>
                   <CNavLink
                     className="navLink"
-                    href={navLink.link}
+                    // href={}
                     key={navLink.id}
                     active={navLink.link == location.pathname}
                   >
-                    {navLink.title}
+                    <Link to={navLink.link}>{navLink.title}</Link>
                   </CNavLink>
                 </CNavItem>
               </>

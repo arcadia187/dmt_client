@@ -14,6 +14,7 @@ import createAxios, { server_url } from "src/constants/variables";
 import { connect } from "react-redux";
 import Alert from "@mui/material/Alert";
 import Payment from "../../../components/payment/Payment";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const Product = ({ token, dispatch, user }) => {
   const [product, setProduct] = useState(null);
@@ -124,7 +125,7 @@ const Product = ({ token, dispatch, user }) => {
     }
   };
   if (!product) {
-    return <div className="whiteColor">Loading</div>;
+    return <LinearProgress />;
   }
   const renderMessage = () => {
     if (!message) {
@@ -207,8 +208,6 @@ const Product = ({ token, dispatch, user }) => {
       </div>
     ));
   };
-  const handleBuy = () => {};
-
   return (
     <div className="product whiteColor">
       <div className="productMainContainer">

@@ -50,7 +50,6 @@
 .paymentImage {
     width: 15%;
 
-    border-radius: 10px;
 }
 
 
@@ -144,14 +143,21 @@
 
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 300px) {
     .containerProduct {
         display: flex;
         flex-direction: column;
     }
+
+    .productMainImageContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 1000px) {
     .containerProduct {
         display: flex;
         flex-direction: row;

@@ -21,12 +21,49 @@ import Shop from "src/components/shop/Shop";
 import Player from "src/components/music/Player";
 import { connect } from "react-redux";
 import { useEffect } from "react";
-
-import img from "../../../assets/Screenshot (48).png";
+import "./homepage.css";
+import ProductCard from "../shop/shopCard";
+import axios from "axios";
+import { CircularProgress } from "@mui/material";
+import { Link } from "react-router-dom";
 function Homepage(props) {
+  const fetchAlbums = async () => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}product/get_releases`
+      );
+      props.dispatch({ type: "albums", payload: data.data });
+    } catch (e) {
+      console.log(e);
+    }
+  };
   useEffect(() => {
-    console.log(props);
-  }, [props]);
+    fetchAlbums();
+    fetchProducts();
+  }, []);
+  console.log({ albums: props.albums });
+  useEffect(() => {}, [props]);
+  const renderShopProducts = () => {
+    if (!props.products) {
+      return <CircularProgress />;
+    }
+    console.log({ products: props.products });
+    return props.products.map((el) => {
+      return <ProductCard product={el} key={el._id} />;
+    });
+  };
+  const fetchProducts = async () => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}product?isFirst=1&limit=6`
+      );
+
+      props.dispatch({ type: "products", payload: data.data });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <CContainer
       fluid
@@ -46,7 +83,9 @@ function Homepage(props) {
             psychedelic culture, music & art. Let's explore the dendrodelic
             realms of enchanted nature.
           </p>
-          <CButton className="secondryBtn">VIEW OUR ALBUMS</CButton>
+          <Link to={"/new_releases"} className="secondryBtn">
+            VIEW OUR ALBUMS
+          </Link>
         </CCol>
       </CRow>
       <br />
@@ -73,20 +112,27 @@ function Homepage(props) {
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
             SHOP
           </h2>
-          <Shop />
+          <div className="mainProductContainer">
+            <div
+              className="productContainerHomePage"
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              {renderShopProducts()}
+            </div>
+          </div>
         </CCol>
       </CRow>
       <br />
-      <CRow className="justify-content-center ">
+      {/* <CRow className="justify-content-center ">
         <CCol className="welcome_box" lg={6}>
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
-            SAMPLE
+            SAMPLE TRACK
           </h2>
           <Player url="/Srivalli(PagalWorld.com.se).mp3" />
         </CCol>
-      </CRow>
+      </CRow> */}
       <br />
-      <CRow className="justify-content-center  ">
+      {/* <CRow className="justify-content-center  ">
         <CCol className="welcome_box">
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
             TOP
@@ -133,7 +179,7 @@ function Homepage(props) {
             </div>
           </div>
         </CCol>
-      </CRow>
+      </CRow> */}
       <br />
     </CContainer>
   );
@@ -142,6 +188,8 @@ function Homepage(props) {
 const mapStateToProps = (state) => ({
   uservalue: state.uservalue,
   token: state.token,
+  albums: state.albums,
+  products: state.products,
 });
 
 export default connect(mapStateToProps)(Homepage);
