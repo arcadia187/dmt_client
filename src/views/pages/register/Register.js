@@ -19,7 +19,7 @@ import { useState } from "react";
 import moment from "moment/moment";
 import { useEffect } from "react";
 import axios from "axios";
-
+import "./register.scss";
 const Register = () => {
   let navigate = useNavigate();
   // Once submitted then show validation
@@ -161,12 +161,15 @@ const Register = () => {
     } else navigate("/500");
   };
   return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div className="bg  min-vh-100 d-flex flex-row align-items-center">
       {!confirmEmail ? (
         <CContainer>
           <CRow className="justify-content-center">
             <CCol md={9} lg={7} xl={6}>
-              <CCard className="mx-4">
+              <CCard
+                style={{ background: "transparent", color: "white" }}
+                className="mx-4"
+              >
                 <CCardBody className="p-4">
                   <CForm onSubmit={handleSubmit}>
                     <h1>Register</h1>
@@ -241,7 +244,7 @@ const Register = () => {
                       />
                     </CInputGroup>
                     <div className="d-grid">
-                      <CButton type="submit" color="success">
+                      <CButton type="submit" className="secondryBtn">
                         Create Account
                       </CButton>
                     </div>

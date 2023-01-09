@@ -1,9 +1,14 @@
 {
+<<<<<<< HEAD
   "short_name": "DMT",
   "name": "Dendro Music Tribe",
+=======
+  "short_name": "DMT-React",
+  "name": "DMT",
+>>>>>>> fb83bf4246d9a60c2452321d885b15445446764d
   "icons": [
     {
-      "src": "./assets/img/favicon.png",
+      "src": "../src/assets/Asset 5.png",
       "sizes": "100x100",
       "type": "image/png"
     }

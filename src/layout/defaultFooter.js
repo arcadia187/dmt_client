@@ -87,7 +87,10 @@ export default function DefaultFooter() {
             <div className="contactForm">
               <h4 className="subhheading">CONTACT FORM</h4>
               <form action="">
-                <div className="formGroup" style={{ display: "flex" }}>
+                <div
+                  className="formGroup"
+                  style={{ display: "flex", flexWrap: "wrap" }}
+                >
                   <input type="text" placeholder="FULL NAME" required />
                   <input type="email" placeholder="EMAIL ADDRESS" required />
                 </div>
