@@ -20,6 +20,7 @@ const ReleaseShop = React.lazy(() => import("./views/pages/release/release"));
 const Cart = React.lazy(() => import("./views/pages/cart/cart"));
 const Product = React.lazy(() => import("./views/pages/product/product"));
 const Login = React.lazy(() => import("./views/pages/login/Login"));
+const Order = React.lazy(() => import("./views/pages/order/Order"));
 const Register = React.lazy(() => import("./views/pages/register/Register"));
 const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
 const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
@@ -74,7 +75,6 @@ function App(props) {
               props?.uservalue?.role == "ADMIN" ? <DashBoardHome /> : <Login />
             }
           />
-
           <Route
             path="/:id"
             name="Product"
@@ -84,6 +84,11 @@ function App(props) {
             path="/new_releases"
             name="Release Shop"
             element={<DefaultLayout children={<ReleaseShop />}></DefaultLayout>}
+          />
+          <Route
+            path="/orders"
+            name="order"
+            element={<DefaultLayout children={<Order />}></DefaultLayout>}
           />
           <Route
             path="/cart"
