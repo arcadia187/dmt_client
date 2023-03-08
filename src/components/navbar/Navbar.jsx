@@ -47,15 +47,15 @@ const NavbarItems = [
     id: 4,
   },
   {
-    title: "blog",
+    title: "Events",
     link: "/blog",
     id: 5,
   },
-  {
-    title: "contact",
-    link: "/contact",
-    id: 6,
-  },
+  // {
+  //   title: "contact",
+  //   link: "/contact",
+  //   id: 6,
+  // },
 ];
 function Navbar({ user }) {
   const [visible, setVisible] = useState(false);

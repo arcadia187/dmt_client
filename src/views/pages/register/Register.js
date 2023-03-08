@@ -20,6 +20,7 @@ import moment from "moment/moment";
 import { useEffect } from "react";
 import axios from "axios";
 import "./register.scss";
+import { Link } from "react-router-dom";
 const Register = () => {
   let navigate = useNavigate();
   // Once submitted then show validation
@@ -262,10 +263,11 @@ const Register = () => {
             alignItems: "center",
             width: "100vw",
             height: "100vh",
+            color: "white",
           }}
         >
           Please check your email inbox and click on the given link to verify
-          and then login.
+          and then<Link to={"/login"}> Login</Link>
         </div>
       )}
     </div>

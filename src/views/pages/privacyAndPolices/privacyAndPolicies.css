@@ -1,0 +1,12 @@
+.privacyAndPoliciesHero {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20%;
+    text-align: center;
+}
+
+.points {
+    padding: 50px 20%;
+}

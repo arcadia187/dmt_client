@@ -51,7 +51,7 @@ const Payment = ({ amount, userOrder, user, currency = "INR" }) => {
       amount: order.amount,
       currency: order.currency,
       name: "DMT",
-      description: "Test Transaction",
+      description: "Transaction",
       handler: function (res) {
         handleResponse(res);
       },
@@ -71,7 +71,7 @@ const Payment = ({ amount, userOrder, user, currency = "INR" }) => {
 
   return (
     <button
-      disabled={true}
+      disabled={false}
       className="albumBtn disabled"
       onClick={generateOrder}
     >

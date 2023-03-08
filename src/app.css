@@ -11,7 +11,7 @@ body {
     --heading-sm-wt: 500;
     --heading-lg-wt: 700;
     --track-heading-color: #8bb63e;
-    --para-sm: 14px;
+    --para-sm: 16px;
     --para-lg: 22px;
     --brown-color: rgb(206, 203, 203);
     --btn-border: .25rem;
@@ -42,6 +42,10 @@ body {
 .mediumHeading {
     font-size: var(--para-sm);
     font-weight: 500;
+}
+
+.footermenu:hover {
+    cursor: pointer;
 }
 
 .compiledBy {

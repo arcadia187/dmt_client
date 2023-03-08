@@ -37,6 +37,7 @@ const Product = ({ token, dispatch, user }) => {
       </div>
     );
   };
+  console.log();
   useEffect(() => {
     // write logic for updating in stock message
     setIsInStock(() => {
@@ -85,6 +86,9 @@ const Product = ({ token, dispatch, user }) => {
   };
   const handleAddToCart = async () => {
     let productPresent;
+    if (Object.keys(user).length === 0) {
+      return setMessage("You should login before adding product to the cart");
+    }
     for (let i = 0; i < user.cart.length; i++) {
       if (
         user.cart[i]?.product === product?._id &&

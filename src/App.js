@@ -6,6 +6,7 @@ import DashBoardHome from "./views/pages/admin/home/Home";
 import { connect } from "react-redux";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import PrivacyAndPolices from "./views/pages/privacyAndPolices/privacyAndPolicies";
 const loading = (
   <div className="pt-3 text-center">
     <div className=" text-center  sk-spinner sk-spinner-pulse">Loading...</div>
@@ -62,6 +63,13 @@ function App(props) {
             path="/checkout"
             name="Checkout"
             element={<DefaultLayout children={<Checkout />}></DefaultLayout>}
+          />
+          <Route
+            path="/privacy-and-policies"
+            name="privacy-and-policies"
+            element={
+              <DefaultLayout children={<PrivacyAndPolices />}></DefaultLayout>
+            }
           />
           <Route
             path="/verify/:token"

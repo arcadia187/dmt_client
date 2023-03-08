@@ -1,8 +1,8 @@
 {
   "name": "dmt",
+  "homepage": "http://dendromusictribe.com/",
   "version": "0.0.1",
-  "description": "Test app for dmt",
-  "homepage": ".",
+  "description": "app for dmt",
   "bugs": {
     "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"
   },
