@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const loadScript = (url) => {
   return new Promise((resolve) => {
     const script = document.createElement("script");
@@ -17,7 +18,7 @@ const loadScript = (url) => {
 
 const Payment = ({ amount, userOrder, user, currency = "INR" }) => {
   const [order, setOrder] = useState(null);
-
+  const navigation = useNavigate();
   const generateOrder = async () => {
     const { data } = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}payment/make-payment`,
@@ -31,6 +32,7 @@ const Payment = ({ amount, userOrder, user, currency = "INR" }) => {
   };
   const handleResponse = (response) => {
     console.log(response);
+    navigation("/paymentSuccess");
   };
   useEffect(() => {
     displayRazorpay();

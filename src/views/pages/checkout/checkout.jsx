@@ -86,6 +86,7 @@ const Checkout = ({ user, token, dispatch, cartTotal }) => {
       dispatchItem.token = token;
       setSuccess(true);
       setMessage("Noted! we'll deliver to this address.");
+      window.scroll(0, 0);
 
       dispatch({ type: "user", value: dispatchItem });
     } catch (e) {
@@ -225,7 +226,7 @@ const Checkout = ({ user, token, dispatch, cartTotal }) => {
       <div className="checkoutHeader">
         <div className="orderSumary marginTop">
           <div className="subhheading whiteColor">
-            Total Items : <Link to={"/cart"}> {user.cart.length}</Link>
+            Total Items : <Link to={"/cart"}> {user.cart?.length}</Link>
           </div>
           <Payment
             amount={cartTotal}

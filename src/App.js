@@ -7,6 +7,9 @@ import { connect } from "react-redux";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import PrivacyAndPolices from "./views/pages/privacyAndPolices/privacyAndPolicies";
+import Order from "./views/pages/admin/order/Order";
+import PaymentSuccess from "./components/paymentSuccess/PaymentSuccess";
+import UserProfile from "./components/userProfile/UserProfile";
 const loading = (
   <div className="pt-3 text-center">
     <div className=" text-center  sk-spinner sk-spinner-pulse">Loading...</div>
@@ -98,11 +101,27 @@ function App(props) {
             name="Cart"
             element={<DefaultLayout children={<Cart />}></DefaultLayout>}
           />
-
           <Route
             path="*"
             name="Home"
             element={<DefaultLayout children={<HomePage />}></DefaultLayout>}
+          />
+          <Route
+            path="/paymentSuccess"
+            name="Payment success"
+            element={
+              <DefaultLayout children={<PaymentSuccess />}></DefaultLayout>
+            }
+          />
+          <Route
+            path="/orders"
+            name="orders"
+            element={<DefaultLayout children={<Order />}></DefaultLayout>}
+          />
+          <Route
+            path="/userProfile"
+            name="userProfile"
+            element={<DefaultLayout children={<UserProfile />}></DefaultLayout>}
           />
         </Routes>
       </Suspense>

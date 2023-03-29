@@ -25,6 +25,7 @@ import logo from "../../assets/Asset 2.png";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import PersonIcon from "@mui/icons-material/Person";
 const NavbarItems = [
   {
     title: "home",
@@ -79,7 +80,7 @@ function Navbar({ user }) {
           <CNavbarNav id="navbar_ul">
             {NavbarItems?.map((navLink, i) => (
               <>
-                <CNavItem>
+                <CNavItem key={i}>
                   <CNavLink
                     className="navLink"
                     // href={}
@@ -106,6 +107,11 @@ function Navbar({ user }) {
           ) : (
             <Link to={"/cart"}>
               <ShoppingCartIcon style={{ margin: "0 2rem 0 auto" }} />
+            </Link>
+          )}
+          {Object.keys(user).length === 0 ? null : (
+            <Link to={"/UserProfile"}>
+              <PersonIcon style={{ margin: "0 2rem 0 auto" }} />
             </Link>
           )}
         </CCollapse>

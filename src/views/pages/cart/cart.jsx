@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PriceCalculator from "src/components/priceCalculator/priceCalculator";
 import createAxios from "../../../constants/variables";
+import { useNavigate } from "react-router-dom";
+
 import "./cart.css";
 import CartItem from "./cartItem";
 const Cart = ({ token, user, dispatch }) => {
@@ -33,6 +35,30 @@ const Cart = ({ token, user, dispatch }) => {
       console.log(e);
     }
   };
+  const navigate = useNavigate();
+  const verifyUser = async () => {
+    try {
+      let tokenStr = "";
+      tokenStr = JSON.parse(await localStorage.getItem("persist:root")).token;
+      // console.log({ token: JSON.parse(await localStorage.getItem("accesstoken")) });
+      const accesstoken = tokenStr.replace(/^"(.*)"$/, "$1");
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}auth/userVerification`,
+        {
+          headers: {
+            authorization: `Bearer ${accesstoken}`,
+          },
+        }
+      );
+      console.log({ data });
+    } catch (e) {
+      console.log(e);
+      navigate("/login");
+    }
+  };
+  useEffect(() => {
+    verifyUser();
+  }, []);
   const renderCartItems = () => {
     if (!products) {
       return (
@@ -83,7 +109,7 @@ const Cart = ({ token, user, dispatch }) => {
         </div>
       </div>
     );
-  } else if (user.cart.length === 0) {
+  } else if (user.cart?.length === 0) {
     return (
       <div className="fallBack ">
         <div className="heading whiteColor">

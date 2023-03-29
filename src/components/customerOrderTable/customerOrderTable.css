@@ -1,0 +1,35 @@
+.orders-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.orders-table th,
+.orders-table td {
+
+    padding: 12px;
+    text-align: left;
+}
+
+.orders-table th {
+    background-color: #222;
+    color: #fff;
+    font-weight: bold;
+}
+
+.orders-table tbody tr:nth-child(even) {
+    background-color: #cacaca04;
+    backdrop-filter: blur(4px);
+}
+
+.orders-table tbody tr:hover {
+    background-color: #cacaca04;
+    backdrop-filter: blur(4px);
+}
+
+.orders-table td {
+    color: #fff;
+}
+
+.orders-table td:nth-child(3) {
+    color: #00ff00;
+}

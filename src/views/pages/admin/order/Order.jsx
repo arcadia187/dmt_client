@@ -24,17 +24,14 @@ export default function Order() {
     try {
       const axiosInstance = await createAxios();
       const { data } = await axiosInstance.get("order");
-      console.log(data.data);
       setOrders(data.data);
     } catch (e) {
       console.log(e);
     }
   };
-
   useEffect(() => {
     getOrders();
   }, []);
-
   const handleDelete = async (id) => {
     console.log(id);
     try {
