@@ -1,5 +1,14 @@
-import { CCol, CRow } from "@coreui/react";
-import React from "react";
+import {
+  CButton,
+  CCol,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle,
+  CRow,
+} from "@coreui/react";
+import React, { useState } from "react";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -15,11 +24,11 @@ export default function DefaultFooter() {
     <footer style={{ overflow: "hidden", padding: "0.5rem", color: "white" }}>
       <CRow className="justify-content-center  ">
         <CCol className="welcome_box">
-          <h2 className="bold_heading" style={{ textAlign: "center" }}>
+          {/* <h2 className="bold_heading" style={{ textAlign: "center" }}>
             CONTACT
-          </h2>
+          </h2> */}
           <div className="footer">
-            <div>
+            <div className="animate hidden">
               <div className="logo">
                 <img src={logo} alt="" />
               </div>
@@ -83,7 +92,7 @@ export default function DefaultFooter() {
                 &nbsp;
               </div>
             </div>
-            <div className="contactBox">
+            <div className="contactBox animate hidden">
               <div className="contact">
                 <span className="dim">Quick Links</span>
                 <br />
@@ -127,27 +136,6 @@ export default function DefaultFooter() {
                 <span className="subhheading">+91 221 321 321</span>
                 <span className="mediumHeading">MANAGER@DMT.COM</span>
               </div> */}
-            </div>
-            <div className="contactForm">
-              <h4 className="subhheading">CONTACT FORM</h4>
-              <form action="">
-                <div
-                  className="formGroup"
-                  style={{ display: "flex", flexWrap: "wrap" }}
-                >
-                  <input type="text" placeholder="FULL NAME" required />
-                  <input type="email" placeholder="EMAIL ADDRESS" required />
-                </div>
-                <input type="text" placeholder="SUBJECT" required />
-                <textarea
-                  rows="6"
-                  cols="45"
-                  type="text"
-                  placeholder="MESSAGE"
-                  required
-                />
-                <button className="secondryBtn smallBtn">SUBMIT</button>
-              </form>
             </div>
           </div>
         </CCol>

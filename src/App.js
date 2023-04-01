@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import PrivacyAndPolices from "./views/pages/privacyAndPolices/privacyAndPolicies";
-import Order from "./views/pages/admin/order/Order";
 import PaymentSuccess from "./components/paymentSuccess/PaymentSuccess";
 import UserProfile from "./components/userProfile/UserProfile";
 const loading = (
@@ -83,7 +82,8 @@ function App(props) {
           <Route
             path="/admin/*"
             element={
-              props?.uservalue?.role == "ADMIN" ? <DashBoardHome /> : <Login />
+              // props?.uservalue?.role == "ADMIN" ? <DashBoardHome /> : <Login />
+              <DashBoardHome />
             }
           />
           <Route

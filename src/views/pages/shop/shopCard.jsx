@@ -1,11 +1,29 @@
 import React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import PriceCalculator from "src/components/priceCalculator/priceCalculator";
 
 const ProductCard = ({ product }) => {
   console.log(product);
+  useEffect(()=>{
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach((entry)=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+          entry.target.classList.remove('hidden');
+        }else{
+          entry.target.classList.remove('show');
+          entry.target.classList.add('hidden');
+        }
+      })
+    })
+  
+    const hiddenElements = document.querySelectorAll('.animate');
+    console.log(hiddenElements)
+    hiddenElements.forEach((el)=>observer.observe(el));
+  })
   return (
-    <Link to={`/${product._id}`} className="productItemContainer">
+    <Link to={`/${product._id}`} className="productItemContainer animate hidden">
       <div className="productItemContainerHeader">
         {product.discount &&
         new Date(product.discount?.endDate) > new Date(Date.now()) ? (
