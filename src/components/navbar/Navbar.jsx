@@ -57,11 +57,11 @@ const NavbarItems = [
     link: "/contact",
     id: 6,
   },
-  {
-    title: "orders",
-    link: "/orders",
-    id: 6,
-  },
+  // {
+  //   title: "orders",
+  //   link: "/orders",
+  //   id: 6,
+  // },
 ];
 function Navbar({ user }) {
   const [visible, setVisible] = useState(false);
