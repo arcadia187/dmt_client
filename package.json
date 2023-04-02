@@ -23,7 +23,6 @@
     "test:debug": "react-scripts --inspect-brk test --runInBand"
   },
   "dependencies": {
-    "@aws-sdk/hash-node": "^3.296.0",
     "@coreui/chartjs": "^3.0.0",
     "@coreui/coreui": "^4.2.1",
     "@coreui/icons": "^2.1.0",

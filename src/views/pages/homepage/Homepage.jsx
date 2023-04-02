@@ -31,12 +31,17 @@ import ProductCard from "../shop/shopCard";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
+import { server_url } from "src/constants/variables";
 function Homepage(props) {
   const [open, setOpen] = useState(false);
   const [name,setName] = useState("")
   const [email,setEmail] = useState("")
   const [subject,setSubject] = useState("")
   const [message,setMessage] = useState("")
+  const[contactEmail,setContactEmail] = useState("")
+  const[contactSubject,setContactSubject] = useState("")
+  const[contactName,setContactName] = useState("")
+  const[contactMessage,setContactMessage] = useState("")
   const fetchAlbums = async () => {
     try {
       const { data } = await axios.get(
@@ -73,6 +78,21 @@ function Homepage(props) {
       console.log(e);
     }
   };
+
+  const handleContactSubmit = async (e)=>{
+    e.preventDefault();
+    try{
+      const res = await axios.post(server_url+"enquiry/create",{
+        name: contactName,
+        email:contactEmail,
+        message:contactMessage,
+        subject:contactMessage
+      });
+      console.log(res);
+    }catch(e){
+      console.log(e);
+    }
+  }
 
   return (
     <CContainer
@@ -224,23 +244,24 @@ function Homepage(props) {
           <CModalBody>
             <div className="contactForm">
               <h4 className="subhheading">CONTACT FORM</h4>
-              <form action="">
+              <form  onSubmit={handleContactSubmit} action="">
                 <div
                   className="formGroup"
                   style={{ display: "flex", flexWrap: "wrap" }}
                 >
-                  <input type="text"  placeholder="FULL NAME" required />
-                  <input type="email" placeholder="EMAIL ADDRESS" required />
+                  <input type="text"  onChange={(e)=>{setContactName(e.target.value)}}  placeholder="FULL NAME" required />
+                  <input type="email"  onChange={(e)=>{setContactEmail(e.target.value)}} placeholder="EMAIL ADDRESS" required />
                 </div>
-                <input type="text" placeholder="SUBJECT" required />
+                <input type="text" onChange={(e)=>{setContactSubject(e.target.value)}} placeholder="SUBJECT" required />
                 <textarea
                   rows="6"
                   cols="45"
                   type="text"
                   placeholder="MESSAGE"
                   required
+                  onChange={(e)=>{setContactMessage(e.target.value)}}
                 />
-                <button className="secondryBtn smallBtn">SUBMIT</button>
+                <button type="submit" className="secondryBtn smallBtn">SUBMIT</button>
               </form>
             </div>
           </CModalBody>
