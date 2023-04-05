@@ -96,7 +96,8 @@ export default function AddNewProduct() {
     console.log(coverImageFile);
     console.log(productImageFile);
     try {
-      const presignedUrl = await getPresignedUrl(coverImageFile.type);
+      const fileType = encodeURIComponent(file.type);
+      const presignedUrl = await getPresignedUrl(fileType);
       uploadToS3(presignedUrl.url, coverImageFile);
 
       console.log("cover image uploaded successfully");
@@ -117,7 +118,9 @@ export default function AddNewProduct() {
         formData.append("file", file);
         formData.append("Content-Type", file.type);
 
-        const presignedUrl = await getPresignedUrl(file.type);
+        const fileType = encodeURIComponent(file.type);
+        const presignedUrl = await getPresignedUrl(fileType);
+        
         uploadToS3(presignedUrl.url, file);
 
         console.log(`File ${file.name} uploaded successfully`);
