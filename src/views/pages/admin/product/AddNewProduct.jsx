@@ -35,6 +35,7 @@ export default function AddNewProduct() {
   const [visibleVariants, setVisibleVariants] = useState(false);
   const [isVariantFieldsSaved, setIsVariantFieldsSaved] = useState(false);
   const [selectDisabled, setSelectDisabled] = useState(false);
+  const [imgCount, setImgCount] = useState(0);
   const [productDescFields, setProductDescFields] = useState([
     {
       field: "",
@@ -46,15 +47,11 @@ export default function AddNewProduct() {
     "stock",
     "",
   ]);
-
   const [coverImageFile, setCoverImageFile] = useState("");
   const [productImageFile, setProductImageFile] = useState("");
-
   const [coverImgUploaded, setCoverImageUploaded] = useState("");
   const [productImgUploaded, setProductImageUploaded] = useState([]);
-
   const navigate = useNavigate();
-
   const fetchAxios = async () => {
     const axiosInstanceCopy = await createAxios();
     setAxiosInstance(axiosInstanceCopy);
@@ -74,39 +71,41 @@ export default function AddNewProduct() {
     );
   }
 
-  const getPresignedUrl = async () => {
-    const response = await axios.get(server_url + "presigned_url");
+  const uploadToS3 = async (url, file) => {
+    return await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      body: file,
+    });
+  };
+  const getPresignedUrl = async (fileType) => {
+    const response = await axios.post(
+      server_url + "product/generate_presigned_url",
+      {
+        fileType: fileType,
+      }
+    );
     return response.data;
   };
-  
+
   const handleUpload = async (e) => {
     e.preventDefault();
-
     // uploading image
-
     console.log(coverImageFile);
     console.log(productImageFile);
-
     try {
-      const formData = new FormData();
-      formData.append("file", coverImageFile);
-
-      const config = {
-        headers: {
-           "Content-Type": coverImageFile.type 
-          },
-      }
-
-      const presignedUrl = await getPresignedUrl();
-
-      await axios.put(presignedUrl.url, formData,config);
+      const presignedUrl = await getPresignedUrl(coverImageFile.type);
+      uploadToS3(presignedUrl.url, coverImageFile);
 
       console.log("cover image uploaded successfully");
-      console.log(presignedUrl.downloadAbleUrl);
+      const imageUrl = presignedUrl.url.split("?")[0];
+      console.log(imageUrl);
 
-      setCoverImageUploaded(presignedUrl.downloadAbleUrl);
-      
-      newProduct["coverImage"] = presignedUrl.downloadAbleUrl;
+      localStorage.setItem("CoverImageUploaded", imageUrl);
+      setCoverImageUploaded(imageUrl);
+      setUploaded(uploaded+1);
     } catch (error) {
       console.error(error);
     }
@@ -116,48 +115,27 @@ export default function AddNewProduct() {
       try {
         const formData = new FormData();
         formData.append("file", file);
-        const presignedUrl = await getPresignedUrl();
-        console.log(presignedUrl.url);
-        await axios.put(presignedUrl.url, formData, {
-          headers: { "Content-Type": file.type },
-        });
+        formData.append("Content-Type", file.type);
+
+        const presignedUrl = await getPresignedUrl(file.type);
+        uploadToS3(presignedUrl.url, file);
+
         console.log(`File ${file.name} uploaded successfully`);
-        setProductImageUploaded((oldObj) => [
-          ...oldObj,
-          presignedUrl.downloadAbleUrl,
-        ]);
-        imageList = [...imageList, presignedUrl.downloadAbleUrl];
+        const imageUrl = presignedUrl.url.split("?")[0];
+        imageList = [...imageList, imageUrl];
       } catch (error) {
         console.error(error);
       }
     });
     await Promise.all(promises);
     console.log("All files uploaded successfully");
+    setProductImageUploaded(imageList);
+    setUploaded(uploaded+imageList.length);
+
+    // saving to localStorage
+    localStorage.setItem("ProductImageUploaded", imageList);
 
     console.log(imageList);
-
-    newProduct["coverImage"];
-    newProduct["images"] = imageList;
-    console.log(discount);
-    let newProduct = {};
-    console.log(product);
-    newProduct["title"] = product.title;
-    newProduct["price"] = product.price;
-    newProduct["description"] = product.description;
-    if (product.productType === "release") {
-      newProduct["productType"] = "release";
-      newProduct["sample"] = sample;
-      newProduct["hotAlbumPoster"] = hotAlbumPoster;
-      newProduct["compiledBy"] = product.compiledBy;
-    }
-    if (product.productType === "goods") {
-      console.log(productDescFields);
-      newProduct["discount"] = discount;
-      newProduct["variant"] = productVariants;
-      newProduct["tags"] = product.tags;
-      newProduct["productDetails"] = productDescFields;
-    }
-    console.log(newProduct);
   };
 
   const handleChange = (e) => {
@@ -177,9 +155,7 @@ export default function AddNewProduct() {
     data[index][name] = value;
     setProductDescFields(data);
   };
-  const handleCreate = () => {
-    navigate("/dashboard/movies");
-  };
+
   const removeFields = (index) => {
     let data = [...productDescFields];
     data.splice(index, 1);
@@ -228,13 +204,63 @@ export default function AddNewProduct() {
     setProductVariants(data);
   };
 
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    try {
+      let newProduct = {};
+      newProduct["coverImage"] = coverImgUploaded;
+      newProduct["images"] = productImgUploaded;
+      console.log(discount);
+      console.log(product);
+      newProduct["title"] = product.title;
+      newProduct["price"] = product.price;
+      newProduct["description"] = product.description;
+      if (product.productType === "release") {
+        newProduct["productType"] = "release";
+        newProduct["sample"] = sample;
+        newProduct["hotAlbumPoster"] = hotAlbumPoster;
+        newProduct["compiledBy"] = product.compiledBy;
+      }
+      if (product.productType === "goods") {
+        console.log(productDescFields);
+        newProduct["discount"] = discount;
+        newProduct["variant"] = productVariants;
+        newProduct["tags"] = product.tags;
+        newProduct["productDetails"] = productDescFields;
+      }
+      console.log(newProduct);
+      const res = await axios.post(server_url+"product/create",newProduct);
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+
+    }
+  };
   // upload image
 
   const selectFiles = (e) => {
+    setImgCount(e.target.files.length);
     e.target.name == "coverImage"
       ? setCoverImageFile(e.target.files[0])
       : setProductImageFile([...e.target.files]);
   };
+
+  useEffect(() => {
+    if (Boolean(localStorage.getItem("CoverImageUploaded"))) {
+      setCoverImageUploaded(localStorage.getItem("CoverImageUploaded"));
+      setUploaded(uploaded+1);
+    }
+
+    if (Boolean(localStorage.getItem("ProductImageUploaded"))) {
+      setProductImageUploaded(localStorage.getItem("ProductImageUploaded"));
+      setUploaded(uploaded+localStorage.getItem("ProductImageUploaded").length);
+    }
+
+    return () => {
+      localStorage.removeItem("CoverImageUploaded");
+      localStorage.removeItem("ProductImageUploaded");
+    };
+  }, []);
 
   return (
     <div className="newProduct">
@@ -661,7 +687,7 @@ export default function AddNewProduct() {
                   {coverImgUploaded != "" && (
                     <div className="addProductItem">
                       <h3>Preview (cover Image)</h3>
-                      <img src={coverImgUploaded} alt=""  />
+                      <img src={coverImgUploaded} alt="" />
                     </div>
                   )}
                 </>
@@ -670,8 +696,8 @@ export default function AddNewProduct() {
                     productImgUploaded != null &&
                     productImgUploaded.length > 0 && (
                       <>
-                        <h3>Preview (product Image)</h3>p
-                        {roductImgUploaded.map((el) => (
+                        <h3>Preview (product Image)</h3>
+                        {productImgUploaded.map((el) => (
                           <div className="addProductItem">
                             <img src={el} alt="" />
                           </div>
@@ -682,7 +708,13 @@ export default function AddNewProduct() {
               </>
             )}
 
-            {uploaded === 5 ? (
+            {imgCount != 0 &&
+            Boolean(productImgUploaded) &&
+            productImgUploaded.length > 0 &&
+            Boolean(coverImgUploaded) &&
+            coverImgUploaded != null &&
+            coverImgUploaded != "" &&
+            uploaded === imgCount ? (
               <button
                 className="addProductButton"
                 type="submit"
@@ -710,4 +742,3 @@ export default function AddNewProduct() {
     </div>
   );
 }
-
