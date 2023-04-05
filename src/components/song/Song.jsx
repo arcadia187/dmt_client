@@ -36,9 +36,8 @@ function Song({ albums }) {
             }}
             className="song"
           >
-            <h3 className="boldName">{e.title}</h3>
-            <div className="blackBg"></div>
-            <Link to={`/${e._id}`} className="albumBtn">
+            <h3 className="boldName t1">{e.title}</h3>
+            <Link to={`/${e._id}`} className="albumBtn t2">
               GET IT NOW
             </Link>
           </div>

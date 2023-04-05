@@ -9,6 +9,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import PrivacyAndPolices from "./views/pages/privacyAndPolices/privacyAndPolicies";
 import PaymentSuccess from "./components/paymentSuccess/PaymentSuccess";
 import UserProfile from "./components/userProfile/UserProfile";
+
 const loading = (
   <div className="pt-3 text-center">
     <div className=" text-center  sk-spinner sk-spinner-pulse">Loading...</div>
@@ -30,6 +31,7 @@ const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 const HomePage = React.lazy(() => import("./views/pages/homepage/Homepage"));
 const Shop = React.lazy(() => import("./views/pages/shop/shop"));
 const Verify = React.lazy(() => import("./views/pages/verify/Verify"));
+const Artist = React.lazy(() => import ("./views/artist/artist"));
 const Checkout = React.lazy(() => import("./views/pages/checkout/checkout"));
 function App(props) {
   console.log(props?.uservalue);
@@ -58,6 +60,17 @@ function App(props) {
                     url={`${process.env.REACT_APP_SERVER_URL}product?isFirst=1&limit=6`}
                     pagination={true}
                   />
+                }
+              ></DefaultLayout>
+            }
+          />
+          <Route
+            path="/artists"
+            name="Artist"
+            element={
+              <DefaultLayout
+                children={
+                  <Artist />
                 }
               ></DefaultLayout>
             }
