@@ -45,11 +45,11 @@ const Shop = ({ title, url, pagination, content, albums, merch }) => {
     <div className="shop">
       <div className="shopHeroContainer">
         <h1 className="heading">{title}</h1>
-        <p className="bodyCopy whiteColor" style={{ textAlign: "center" }}>
+        {/* <p className="bodyCopy whiteColor" style={{ textAlign: "center" }}>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the
           <br /> industry's standard dummy text ever since the 1500s
-        </p>
+        </p> */}
       </div>
       <div className="mainProductContainer">
         <div className="productContainer">{renderCards()}</div>

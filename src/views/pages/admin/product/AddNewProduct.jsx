@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import "./newProduct.scss";
 import React from "react";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -9,6 +9,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import TextField from "@mui/material/TextField";
+import { S3 } from "aws-sdk";
 import {
   CButton,
   CModal,
@@ -17,6 +18,8 @@ import {
   CModalHeader,
   CModalTitle,
 } from "@coreui/react";
+import axios from "axios";
+import { server_url } from "src/constants/variables";
 export default function AddNewProduct() {
   const [product, setProduct] = useState(null);
   const [discount, setDiscount] = useState(null);
@@ -44,6 +47,12 @@ export default function AddNewProduct() {
     "",
   ]);
 
+  const [coverImageFile, setCoverImageFile] = useState("");
+  const [productImageFile, setProductImageFile] = useState("");
+
+  const [coverImgUploaded, setCoverImageUploaded] = useState("");
+  const [productImgUploaded, setProductImageUploaded] = useState([]);
+
   const navigate = useNavigate();
 
   const fetchAxios = async () => {
@@ -65,46 +74,76 @@ export default function AddNewProduct() {
     );
   }
 
-  // Upload
-  const upload = (items) => {
-    items.forEach((item) => {
-      const fileName = new Date().getTime() + item.label + item.file.name;
-      const itemRef = ref(storage, "items/" + fileName);
-      const uploadTask = uploadBytesResumable(itemRef, item.file);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress = parseInt(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          setProgressPercentage(progress);
-        },
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            setMovie((prev) => {
-              return { ...prev, [item.label]: url };
-            });
-            setUploaded((prev) => prev + 1);
-          });
-        }
-      );
-    });
+  const getPresignedUrl = async () => {
+    const response = await axios.get(server_url + "presigned_url");
+    return response.data;
   };
-
+  
   const handleUpload = async (e) => {
     e.preventDefault();
+
+    // uploading image
+
+    console.log(coverImageFile);
+    console.log(productImageFile);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", coverImageFile);
+
+      const config = {
+        headers: {
+           "Content-Type": coverImageFile.type 
+          },
+      }
+
+      const presignedUrl = await getPresignedUrl();
+
+      await axios.put(presignedUrl.url, formData,config);
+
+      console.log("cover image uploaded successfully");
+      console.log(presignedUrl.downloadAbleUrl);
+
+      setCoverImageUploaded(presignedUrl.downloadAbleUrl);
+      
+      newProduct["coverImage"] = presignedUrl.downloadAbleUrl;
+    } catch (error) {
+      console.error(error);
+    }
+
+    let imageList = [];
+    const promises = productImageFile.map(async (file) => {
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+        const presignedUrl = await getPresignedUrl();
+        console.log(presignedUrl.url);
+        await axios.put(presignedUrl.url, formData, {
+          headers: { "Content-Type": file.type },
+        });
+        console.log(`File ${file.name} uploaded successfully`);
+        setProductImageUploaded((oldObj) => [
+          ...oldObj,
+          presignedUrl.downloadAbleUrl,
+        ]);
+        imageList = [...imageList, presignedUrl.downloadAbleUrl];
+      } catch (error) {
+        console.error(error);
+      }
+    });
+    await Promise.all(promises);
+    console.log("All files uploaded successfully");
+
+    console.log(imageList);
+
+    newProduct["coverImage"];
+    newProduct["images"] = imageList;
     console.log(discount);
     let newProduct = {};
     console.log(product);
     newProduct["title"] = product.title;
     newProduct["price"] = product.price;
-
     newProduct["description"] = product.description;
-    newProduct["coverImage"] = product.coverImage;
-    newProduct["images"] = product.images;
     if (product.productType === "release") {
       newProduct["productType"] = "release";
       newProduct["sample"] = sample;
@@ -188,6 +227,15 @@ export default function AddNewProduct() {
     data.splice(index, 1);
     setProductVariants(data);
   };
+
+  // upload image
+
+  const selectFiles = (e) => {
+    e.target.name == "coverImage"
+      ? setCoverImageFile(e.target.files[0])
+      : setProductImageFile([...e.target.files]);
+  };
+
   return (
     <div className="newProduct">
       <h1 className="addProductTitle">New Product</h1>
@@ -215,18 +263,19 @@ export default function AddNewProduct() {
               <label>CoverImage</label>
               <input
                 type="file"
-                id="img"
-                name="img"
-                onChange={(e) => setCoverImg(e.target.files[0])}
+                accept="image/*"
+                name="coverImage"
+                onChange={selectFiles}
               />
             </div>
             <div className="addProductItem">
               <label>Product Images</label>
               <input
                 type="file"
-                id="imgTitle"
-                name="imgTitle"
-                onChange={(e) => setProductImgs(e.target.files)}
+                multiple
+                name="productImages"
+                accept="image/*"
+                onChange={selectFiles}
               />
             </div>
             <div className="addProductItem">
@@ -608,6 +657,28 @@ export default function AddNewProduct() {
                     </CModalFooter>
                   </CModal>
                 </div>
+                <>
+                  {coverImgUploaded != "" && (
+                    <div className="addProductItem">
+                      <h3>Preview (cover Image)</h3>
+                      <img src={coverImgUploaded} alt=""  />
+                    </div>
+                  )}
+                </>
+                <>
+                  {productImgUploaded != undefined &&
+                    productImgUploaded != null &&
+                    productImgUploaded.length > 0 && (
+                      <>
+                        <h3>Preview (product Image)</h3>p
+                        {roductImgUploaded.map((el) => (
+                          <div className="addProductItem">
+                            <img src={el} alt="" />
+                          </div>
+                        ))}
+                      </>
+                    )}
+                </>
               </>
             )}
 
@@ -639,3 +710,4 @@ export default function AddNewProduct() {
     </div>
   );
 }
+

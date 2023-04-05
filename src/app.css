@@ -1,31 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Poppins:wght@200;400&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;600&display=swap');
+
+
+.osward {
+    font-family: "Oswald", sans-serif !important;
+}
 
 body {
     --darkBlue-color: #020310;
     --darkBlue-color-light: #01020b;
     --yellow-color: #FEE092;
-    --bodyCopy: 16px;
+    --bodyCopy: 14px;
     --heading-lg: 50px;
     --heading-sm: 24px;
-    --heading-sm-wt: 500;
+    --heading-sm-wt: 300;
     --heading-lg-wt: 700;
     --track-heading-color: #8bb63e;
-    --para-sm: 16px;
+    --para-sm: 14px;
     --para-lg: 22px;
     --brown-color: rgb(206, 203, 203);
     --btn-border: .25rem;
     --white-color: #fff;
     --btn-padding: 10px 5px;
-    --btn-font: 18px;
+    --btn-font: 14px;
     --btn-height: 50px;
     --btn-width: 100px;
     --heading-md: 20px
 }
 
 * {
-    font-family: 'Barlow', sans-serif;
+    font-family: "Oswald", sans-serif !important;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 
@@ -73,14 +84,15 @@ body {
     font-size: var(--btn-font) !important;
     border-radius: var(--btn-border);
     padding: var(--btn-padding);
+    font-family: 'Poppins', cursive;
     /* height: var(--btn-height);
     width: var(--btn-width); */
 }
 
 .para {
-    line-height: 1.5rem;
-    letter-spacing: 1px;
-
+    line-height: 1.6rem;
+    letter-spacing: 1.2px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .whiteColor {
@@ -108,6 +120,7 @@ body {
     align-items: center;
     padding: var(--btn-padding) !important;
     border: 1px solid var(--yellow-color) !important;
+    font-family: "Poppins";
     /* height: var(--btn-height);
     width: var(--btn-width); */
 }
@@ -135,7 +148,7 @@ body {
 .boldName {
     font-size: var(--para-lg);
     font-weight: var(--heading-lg-wt);
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 a {

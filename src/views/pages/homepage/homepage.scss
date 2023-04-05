@@ -8,6 +8,8 @@
   flex-direction: column;
   align-items: center;
   padding: 2rem 0;
+  margin-top: -50px;
+  font-family: "Oswald", sans-serif !important;
 
   p.bodycopy {
     width: 60%;
@@ -21,6 +23,8 @@
     margin-bottom: 2rem;
     font-size: var(--heading-sm);
     font-weight: var(--heading-sm-wt);
+    font-family: "Poppins", sans-serif;
+    font-weight: bold !important;
   }
 }
 .row_box {
@@ -38,6 +42,63 @@
   }
 }
 
+.contactForm {
+  flex: 2;
+  background: black;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .formGroup {
+      // background: none;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+
+      input {
+        gap: 1rem;
+        max-width: 50%;
+        background: black;
+      }
+    }
+  }
+
+  .contactBox {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    .contact {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .modal-backdrop {
+    background-color: red;
+  }
+  // .modal-header .btn-close
+  input,
+  textarea {
+    background: black;
+    color: white;
+    line-height: 1.5rem;
+    letter-spacing: 1px;
+    padding: 1.2rem;
+    font-size: 18px;
+    max-width: 50%;
+    border: none;
+    border-bottom: 1px solid white;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+  .smallBtn {
+    width: 150px;
+  }
+
+  ::placeholder {
+    color: white;
+  }
+}
 @media screen and (min-width: 993px) {
   .container {
     padding-top: 0.225rem;
@@ -57,3 +118,18 @@
     }
   }
 }
+
+// .glass {
+//   background: rgba(112, 154, 231, 0.25);
+// box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+// backdrop-filter: blur( 4px );
+// -webkit-backdrop-filter: blur( 4px );
+// border-radius: 10px;
+// border: 1px solid rgba( 255, 255, 255, 0.18 );
+// color: blanchedalmond;
+// }
+
+// .glass:hover{
+//   background: rgba( 13, 71, 182, 0.75 )!important;
+//   color: inherit;
+// }

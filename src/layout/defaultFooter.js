@@ -1,5 +1,14 @@
-import { CCol, CRow } from "@coreui/react";
-import React from "react";
+import {
+  CButton,
+  CCol,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle,
+  CRow,
+} from "@coreui/react";
+import React, { useState } from "react";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -15,24 +24,16 @@ export default function DefaultFooter() {
     <footer style={{ overflow: "hidden", padding: "0.5rem", color: "white" }}>
       <CRow className="justify-content-center  ">
         <CCol className="welcome_box">
-          <h2 className="bold_heading" style={{ textAlign: "center" }}>
+          {/* <h2 className="bold_heading" style={{ textAlign: "center" }}>
             CONTACT
-          </h2>
+          </h2> */}
           <div className="footer">
-            <div>
+            <div className="animate footer-left hidden">
               <div className="logo">
                 <img src={logo} alt="" />
               </div>
-              <div>
-                <p>
-                  Dmt Is A New Age Psychedelic Record Label Based In India
-                  Devoted For Psychedelic Culture, Music & Art. Our Aim Is To
-                  Promote And Release Upcoming Artist Alliance Sharing Same
-                  Goal, So Let's Explore The Dendrodelic Realms Of Enchanted
-                  Nature.
-                </p>
-              </div>
-              <div>
+
+              <div style={{ marginLeft: "-10px" }}>
                 <a href="#" target="_blank">
                   {/* <LinkedInIcon
                     className="footerSocialIcons"
@@ -47,14 +48,20 @@ export default function DefaultFooter() {
                   />
                 </a>{" "}
                 &nbsp;
-                <a href="#" target="_blank">
+                <a
+                  href="https://instagram.com/dendromusictribe?igshid=YmMyMTA2M2Y="
+                  target="_blank"
+                >
                   <InstagramIcon
                     className="footerSocialIcons"
                     sx={{ color: "#c58434" }}
                   />
                 </a>{" "}
                 &nbsp;
-                <a href="#" target="_blank">
+                <a
+                  href="https://www.facebook.com/dendromusictribe?mibextid=ZbWKwL"
+                  target="_blank"
+                >
                   <FacebookIcon
                     className="footerSocialIcons"
                     sx={{ color: "#c58434" }}
@@ -83,7 +90,7 @@ export default function DefaultFooter() {
                 &nbsp;
               </div>
             </div>
-            <div className="contactBox">
+            <div className="contactBox animate hidden">
               <div className="contact">
                 <span className="dim">Quick Links</span>
                 <br />
@@ -106,7 +113,7 @@ export default function DefaultFooter() {
                   Releases
                 </Link>
               </div>
-              <div className="contact">
+              <div className="contact contact-right">
                 <span className="dim">Contact us</span>
                 <br />
                 {/* <span className="subhheading"> dendromusictribe@gmail.com</span> */}
@@ -117,9 +124,7 @@ export default function DefaultFooter() {
                 </span>
                 <br />
                 <span className="mediumHeading">
-                  Address : B-13, Agnipath Apartments,
-                  <br /> 7 T. B. Sapru Road, Civil Lines, Prayagraj, 211001
-                  <br />, Uttar Pradesh , India
+                  Address : Prayagraj, Uttar Pradesh , India
                 </span>
               </div>
               {/* <div className="contact">
@@ -127,27 +132,6 @@ export default function DefaultFooter() {
                 <span className="subhheading">+91 221 321 321</span>
                 <span className="mediumHeading">MANAGER@DMT.COM</span>
               </div> */}
-            </div>
-            <div className="contactForm">
-              <h4 className="subhheading">CONTACT FORM</h4>
-              <form action="">
-                <div
-                  className="formGroup"
-                  style={{ display: "flex", flexWrap: "wrap" }}
-                >
-                  <input type="text" placeholder="FULL NAME" required />
-                  <input type="email" placeholder="EMAIL ADDRESS" required />
-                </div>
-                <input type="text" placeholder="SUBJECT" required />
-                <textarea
-                  rows="6"
-                  cols="45"
-                  type="text"
-                  placeholder="MESSAGE"
-                  required
-                />
-                <button className="secondryBtn smallBtn">SUBMIT</button>
-              </form>
             </div>
           </div>
         </CCol>

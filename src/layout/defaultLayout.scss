@@ -4,3 +4,13 @@
   background-color: #020310;
   background-blend-mode: lighten;
 }
+.show{
+  opacity: 1;
+  transition: all 1.5s;
+  transform: scale(1);
+}
+
+.hidden{
+  opacity: 0; 
+  transform: scale(0.9);
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CButton,
   CCard,
@@ -10,6 +10,11 @@ import {
   CFormInput,
   CInputGroup,
   CInputGroupText,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle,
   CRow,
 } from "@coreui/react";
 import "./homepage.scss";
@@ -27,6 +32,11 @@ import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 function Homepage(props) {
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
   const fetchAlbums = async () => {
     try {
       const { data } = await axios.get(
@@ -72,14 +82,14 @@ function Homepage(props) {
         overflow: "hidden",
       }}
     >
-      <CRow className="justify-content-center row_box">
+      <CRow className="justify-content-center row_box hidden animate">
         <CCol className="welcome_box" lg={6}>
           <h2 className="bold_heading heading" style={{ textAlign: "center" }}>
-            WELCOME TO OUR PORTAL
+            {/* WELCOME TO OUR PORTAL */}
           </h2>
           <LazyLoadImage src={logo} width="300px" alt="" />
-          <p className="bodycopy para">
-            DMT is a new age psychedelic record label based in India devoted for
+          <p className="bodycopy para osward">
+            DMT is a new age psychedelic record label based in India devoted to
             psychedelic culture, music & art. Let's explore the dendrodelic
             realms of enchanted nature.
           </p>
@@ -89,7 +99,7 @@ function Homepage(props) {
         </CCol>
       </CRow>
       <br />
-      <CRow className="justify-content-center ">
+      <CRow className="justify-content-center hidden animate">
         <CCol className="welcome_box" lg={6}>
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
             HOT!
@@ -98,7 +108,7 @@ function Homepage(props) {
         </CCol>
       </CRow>
       <br />
-      <CRow className="justify-content-center ">
+      <CRow className="justify-content-center hidden animate">
         <CCol className="welcome_box" lg={6}>
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
             NEW
@@ -107,7 +117,7 @@ function Homepage(props) {
         </CCol>
       </CRow>
       <br />
-      <CRow className="justify-content-center ">
+      <CRow className="justify-content-center  hidden animate">
         <CCol className="welcome_box" lg={8}>
           <h2 className="bold_heading" style={{ textAlign: "center" }}>
             SHOP
@@ -181,6 +191,62 @@ function Homepage(props) {
         </CCol>
       </CRow> */}
       <br />
+      <CButton
+        className="secondryBtn glass"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          // padding: "0.6rem",
+          position: "fixed",
+          right: "22px",
+          bottom: "43px",
+          width: "85px",
+          height: "85px",
+          borderRadius: "50%",
+          zIndex: "999",
+        }}
+        onClick={() => setOpen(!open)}
+      >
+        <span>
+          Contact <br />
+          Us
+        </span>
+      </CButton>
+      <CModal
+        size="xl"
+        scrollable
+        visible={open}
+        className="modalBox"
+        onClose={() => setOpen(false)}
+      >
+        <CModalHeader>
+          <CModalTitle>Contact</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <div className="contactForm">
+            <h4 className="subhheading">CONTACT FORM</h4>
+            <form action="">
+              <div
+                className="formGroup"
+                style={{ display: "flex", flexWrap: "wrap" }}
+              >
+                <input type="text" placeholder="FULL NAME" required />
+                <input type="email" placeholder="EMAIL ADDRESS" required />
+              </div>
+              <input type="text" placeholder="SUBJECT" required />
+              <textarea
+                rows="6"
+                cols="45"
+                type="text"
+                placeholder="MESSAGE"
+                required
+              />
+              <button className="secondryBtn smallBtn">SUBMIT</button>
+            </form>
+          </div>
+        </CModalBody>
+      </CModal>
     </CContainer>
   );
 }

@@ -307,7 +307,14 @@ const Product = ({ token, dispatch, user }) => {
             )}
             {renderArtists()}
             {product.productType === "release" ? (
-              <Payment amount={product.price} />
+              <Payment
+                userOrder={{
+                  // address: user.deliveryAddress,
+                  products: JSON.stringify([{ products: product._id }]),
+                }}
+                currency={user?.ip?.country_name === "India" ? "INR" : "EUR"}
+                amount={product.price}
+              />
             ) : (
               <button
                 className={` albumBtn marginTop`}

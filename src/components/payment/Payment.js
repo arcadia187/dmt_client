@@ -18,6 +18,8 @@ const loadScript = (url) => {
 
 const Payment = ({ amount, userOrder, user, currency = "INR" }) => {
   const [order, setOrder] = useState(null);
+
+  console.log({ amount, userOrder, user });
   const navigation = useNavigate();
   const generateOrder = async () => {
     const { data } = await axios.post(

@@ -44,7 +44,7 @@ function Album({ albums }) {
           <p className="credit">compiled by DAVER DEMON</p>
         ) : null}
         <p className="credit">{album.description}</p>
-        <Link to={`/${album._id}`} className="albumBtn secondryBtn">
+        <Link to={`/${album._id}`} style={{marginBottom:"1.2rem"}} className="albumBtn secondryBtn">
           GET IT NOW
         </Link>
       </div>
