@@ -30,7 +30,7 @@ const ArtistCard = ({ artist }) => {
         <img className="productImage" src={artist.image} />
       </div>
       <div className="productItemContainerFooter">
-        <div className="productItemContainerTitle boldName whiteColor">
+        <div  className="productItemContainerTitle boldName whiteColor">
           {artist.name.length > 20
             ? `${artist.name.slice(0, 20).toLowerCase()}...`
             : artist.name}
@@ -38,11 +38,6 @@ const ArtistCard = ({ artist }) => {
         <div className="productItemContainerPrice bodyCopy whiteColor">
     
         </div>
-        {/* <div className="btnContainer marginTop">
-          <Link to="#" className="albumBtn">
-            View
-          </Link>
-        </div> */}
       </div>
     </Link>
   );

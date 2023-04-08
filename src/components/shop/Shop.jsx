@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
 import ProductCard from "src/views/pages/shop/shopCard";
-import "./shop.scss";
 
 function Shop() {
   const [products, setProducts] = useState(null);

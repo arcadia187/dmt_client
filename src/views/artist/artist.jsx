@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import "./artist.scss";
 import { server_url } from "src/constants/variables";
 import ArtistCard from "./artistCard";
 import { CircularProgress } from "@mui/material";
